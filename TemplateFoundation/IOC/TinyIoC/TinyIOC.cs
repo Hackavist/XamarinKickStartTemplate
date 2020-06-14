@@ -48,14 +48,14 @@ namespace TemplateFoundation.IOC.TinyIoC
     #region SafeDictionary
     public class SafeDictionary<TKey, TValue> : IDisposable
     {
-        private readonly object _Padlock = new object();
+        private readonly object _padlock = new object();
         private readonly Dictionary<TKey, TValue> _Dictionary = new Dictionary<TKey, TValue>();
 
         public TValue this[TKey key]
         {
             set
             {
-                lock (_Padlock)
+                lock (_padlock)
                 {
                     if (_Dictionary.TryGetValue(key, out TValue current))
                     {
@@ -70,7 +70,7 @@ namespace TemplateFoundation.IOC.TinyIoC
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            lock (_Padlock)
+            lock (_padlock)
             {
                 return _Dictionary.TryGetValue(key, out value);
             }
@@ -78,7 +78,7 @@ namespace TemplateFoundation.IOC.TinyIoC
 
         public bool Remove(TKey key)
         {
-            lock (_Padlock)
+            lock (_padlock)
             {
                 return _Dictionary.Remove(key);
             }
@@ -86,24 +86,19 @@ namespace TemplateFoundation.IOC.TinyIoC
 
         public void Clear()
         {
-            lock (_Padlock)
+            lock (_padlock)
             {
                 _Dictionary.Clear();
             }
         }
 
-        public IEnumerable<TKey> Keys
-        {
-            get
-            {
-                return _Dictionary.Keys;
-            }
-        }
+        public IEnumerable<TKey> Keys => _Dictionary.Keys;
+
         #region IDisposable Members
 
         public void Dispose()
         {
-            lock (_Padlock)
+            lock (_padlock)
             {
                 var disposableItems = from item in _Dictionary.Values
                         where item is IDisposable
