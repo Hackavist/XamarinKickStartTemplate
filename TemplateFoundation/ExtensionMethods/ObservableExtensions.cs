@@ -6,7 +6,7 @@ namespace TemplateFoundation.ExtensionMethods
     {
         public static IDisposable SubscribeWeakly<T, TTarget>(this IObservable<T> observable, TTarget target, Action<TTarget, T> onNext) where TTarget : class
         {
-            var reference = new WeakReference(target);
+            WeakReference reference = new WeakReference(target);
 
             if (onNext.Target != null)
             {
