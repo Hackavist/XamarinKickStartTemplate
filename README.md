@@ -12,7 +12,7 @@ Just Click _Use This Template_ in the Project's Github Repo.
 The _Xamarin Kick Starter Template_ Cuts the project start overhead by providing you with some of the most commonly used services and nugets packs for every Xamarin Forms Project such as:
 
 ## Basic Features
-_This Template is based upon our Modified Version Of [Fresh MVVM](https://github.com/rid00z/FreshMvvm)_.
+_This Template is based upon our Own Modified Version Of [Fresh MVVM](https://github.com/rid00z/FreshMvvm)_.
 
 * MVVM File Structure (with some extra folders for Converters, Custom Controls, etc...).
 
@@ -36,6 +36,14 @@ _This Template is based upon our Modified Version Of [Fresh MVVM](https://github
 * User Dialogs and loading Screens using [ACR User Dialogs](https://github.com/aritchie/userdialogs).
 
 * Json Serialization and Deserialization Using [Newtonsoft.Json](https://www.newtonsoft.com/json).
+
+## HomeGrown Features
+
+* In Memory LCS (Longest Common Subsequence) Generic Search
+
+* String Formating extensions.
+
+* NullorEmpty checks inside the Objects\*.(for string feilds only).
 
 
 
