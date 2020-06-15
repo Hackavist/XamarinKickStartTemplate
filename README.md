@@ -1,6 +1,6 @@
 # Xamarin Kick Starter Template
 
-This Repository was made to help you cut down on your project start overhead by providing you with everything you need right at the iniation of your repository.
+Get Up and running with your _Xamarin Forms_ project in no time, use this template to get an new xamarin forms project with a MVVM Folder structure, The most used nuget packeges and services with the latest .netStanderd 2.1 and C# 8 with the push of a single button.
 
 ## How to use it?
 
