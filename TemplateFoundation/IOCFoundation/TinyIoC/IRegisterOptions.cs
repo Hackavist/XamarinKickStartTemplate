@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace TemplateFoundation.IOC.TinyIoC
+namespace TemplateFoundation.IOCFoundation.TinyIoC
 {
     public interface IRegisterOptions
     {

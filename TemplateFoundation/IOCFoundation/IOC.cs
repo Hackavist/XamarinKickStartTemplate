@@ -1,4 +1,6 @@
-﻿namespace TemplateFoundation.IOC
+﻿using TemplateFoundation.IOC;
+
+namespace TemplateFoundation.IOCFoundation
 {
     public class IOC
     {
@@ -6,7 +8,7 @@
 
         public static ITinyIOC Container
         {
-            get { return _freshIocContainer ??= new FreshTinyIOCBuiltIn(); }
+            get { return _freshIocContainer ??= new FreshTinyIocBuiltIn(); }
         }
 
         public static void OverrideContainer(ITinyIOC overrideContainer)

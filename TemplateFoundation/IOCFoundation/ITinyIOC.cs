@@ -1,7 +1,7 @@
 ﻿using System;
-using TemplateFoundation.IOC.TinyIoC;
+using TemplateFoundation.IOCFoundation.TinyIoC;
 
-namespace TemplateFoundation.IOC
+namespace TemplateFoundation.IOCFoundation
 {
     public interface ITinyIOC
     {

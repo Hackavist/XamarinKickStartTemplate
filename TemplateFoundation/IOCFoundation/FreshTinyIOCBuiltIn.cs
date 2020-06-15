@@ -1,12 +1,12 @@
 ﻿using System;
-using TemplateFoundation.IOC.TinyIoC;
+using TemplateFoundation.IOCFoundation.TinyIoC;
 
-namespace TemplateFoundation.IOC
+namespace TemplateFoundation.IOCFoundation
 {
     /// <summary>
     ///     Built in TinyIOC for ease of use
     /// </summary>
-    public class FreshTinyIOCBuiltIn : ITinyIOC
+    public class FreshTinyIocBuiltIn : ITinyIOC
     {
         public static TinyIoCContainer Current => TinyIoCContainer.Current;
 

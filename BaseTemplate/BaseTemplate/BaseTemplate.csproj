@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Constants\" />
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 </Project>

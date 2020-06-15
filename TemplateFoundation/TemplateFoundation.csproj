@@ -11,11 +11,15 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
     <PackageReference Include="System.Reactive" Version="4.4.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IOC\" />
-    <Folder Include="Navigation\" />
+    <Folder Include="IOCFoundation\" />
+    <Folder Include="Navigation\Interfaces\" />
+    <Folder Include="Navigation\Implementations\" />
+    <Folder Include="Navigation\NavigationContainers\" />
+    <Folder Include="PageFoundation\" />
   </ItemGroup>
 
 </Project>

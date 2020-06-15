@@ -12,7 +12,6 @@
 // LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================s
-using TemplateFoundation.IOC.TinyIoC;
 
 #region Preprocessor Directives
 // Uncomment this line if you want the container to automatically
@@ -38,7 +37,7 @@ using TemplateFoundation.IOC.TinyIoC;
 
 #endregion
 
-namespace TemplateFoundation.IOC.TinyIoC
+namespace TemplateFoundation.IOCFoundation.TinyIoC
 {
     using System;
     using System.Collections.Generic;
