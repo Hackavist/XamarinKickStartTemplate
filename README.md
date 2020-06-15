@@ -116,11 +116,12 @@ Get all what you need from a local database just at your finger tips with the ``
     }
 ```
 
-## Features Work 
+## Future Work
 
 * Set MasterDetailsPage Design 
-* Async Command Set task Result(True/False)
-* Add Validtors for Objects
+* Async Command Set task Result (to prevent multiple clicks on any giving button)
+* On the Fly object validators 
+* Basic Converters
 
 
 
