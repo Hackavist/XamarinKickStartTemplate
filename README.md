@@ -36,6 +36,8 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * Json Serialization and Deserialization Using [Newtonsoft.Json](https://www.newtonsoft.com/json).
 
+* Media Plugin for Xamarin Using [MediaPlugin](https://github.com/jamesmontemagno/MediaPlugin).
+
 * Weak Event Handeling
 
 * Async Command Support
@@ -114,6 +116,11 @@ Get all what you need from a local database just at your finger tips with the ``
     }
 ```
 
+##Featuare Work 
+
+* Set MasterDetailsPage Design 
+* Async Command Set task Result(True/False)
+* Add Validtors for Objects
 
 
 
