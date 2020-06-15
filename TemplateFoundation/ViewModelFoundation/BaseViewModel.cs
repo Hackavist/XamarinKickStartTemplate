@@ -2,7 +2,10 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
+using TemplateFoundation.Navigation;
 using TemplateFoundation.ViewModelFoundation.Interfaces;
+
 using Xamarin.Forms;
 
 namespace TemplateFoundation.ViewModelFoundation
@@ -83,7 +86,7 @@ namespace TemplateFoundation.ViewModelFoundation
         /// <summary>
         /// Used when a page is shown modal and wants a new Navigation Stack
         /// </summary>
-        public string CurrentNavigationServiceName = Constants.DefaultNavigationServiceName;
+        public string CurrentNavigationServiceName = NavigationConstants.DefaultNavigationServiceName;
 
         /// <summary>
         /// This means the current PageModel is shown modally and can be pop'd modally
@@ -153,7 +156,7 @@ namespace TemplateFoundation.ViewModelFoundation
         }
         public string Title { get; set; }
         public string Icon { get; set; }
-        
+
     }
 }
 

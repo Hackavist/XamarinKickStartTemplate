@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TemplateFoundation.ExtensionMethods;
+using TemplateFoundation.IOCFoundation;
 using TemplateFoundation.Navigation.Interfaces;
+using TemplateFoundation.ViewModelFoundation;
 using Xamarin.Forms;
 
 namespace TemplateFoundation.Navigation.NavigationContainers
 {
-    public class NavigationPageContainer : Xamarin.Forms.NavigationPage, INavigationService
+    public class NavigationPageContainer : NavigationPage, INavigationService
     {
-        public NavigationPageContainer(Page page)
-            : this(page, NavigationConstants.DefaultNavigationServiceName)
+        public NavigationPageContainer(Page page) : this(page, NavigationConstants.DefaultNavigationServiceName)
         {
         }
 
-        public NavigationPageContainer(Page page, string navigationPageName)
-            : base(page)
+        public NavigationPageContainer(Page page, string navigationPageName) : base(page)
         {
             var pageModel = page.GetModel();
             if (pageModel == null)
@@ -24,9 +25,36 @@ namespace TemplateFoundation.Navigation.NavigationContainers
             RegisterNavigation();
         }
 
+        public virtual Task PushPage(Page page, BaseViewModel model, bool modal = false, bool animate = true)
+        {
+            return modal ? Navigation.PushModalAsync(CreateContainerPageSafe(page), animate) : Navigation.PushAsync(page, animate);
+        }
+
+        public virtual Task PopPage(bool modal = false, bool animate = true)
+        {
+            return modal ? Navigation.PopModalAsync(animate) : Navigation.PopAsync(animate);
+        }
+
+        public Task PopToRoot(bool animate = true)
+        {
+            return Navigation.PopToRootAsync(animate);
+        }
+
+        public string NavigationServiceName { get; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            this.NotifyAllChildrenPopped();
+        }
+
+        public Task<BaseViewModel> SwitchSelectedRootPageModel<T>() where T : BaseViewModel
+        {
+            throw new Exception("This navigation container has no selected roots, just a single root");
+        }
+
         protected void RegisterNavigation()
         {
-            IOCFoundation.IOC.Container.Register<INavigationService>(this, NavigationServiceName);
+            IOC.Container.Register<INavigationService>(this, NavigationServiceName);
         }
 
         internal Page CreateContainerPageSafe(Page page)
@@ -41,37 +69,5 @@ namespace TemplateFoundation.Navigation.NavigationContainers
         {
             return new NavigationPage(page);
         }
-
-        public virtual Task PushPage(Xamarin.Forms.Page page, BaseViewModel model, bool modal = false, bool animate = true)
-        {
-            if (modal)
-                return Navigation.PushModalAsync(CreateContainerPageSafe(page), animate);
-            return Navigation.PushAsync(page, animate);
-        }
-
-        public virtual Task PopPage(bool modal = false, bool animate = true)
-        {
-            if (modal)
-                return Navigation.PopModalAsync(animate);
-            return Navigation.PopAsync(animate);
-        }
-
-        public Task PopToRoot(bool animate = true)
-        {
-            return Navigation.PopToRootAsync(animate);
-        }
-
-        public string NavigationServiceName { get; private set; }
-
-        public void NotifyChildrenPageWasPopped()
-        {
-            this.NotifyAllChildrenPopped();
-        }
-
-        public Task<BaseViewModel> SwitchSelectedRootPageModel<T>() where T : BaseViewModel
-        {
-            throw new Exception("This navigation container has no selected roots, just a single root");
-        }
     }
 }
-

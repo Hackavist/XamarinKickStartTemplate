@@ -1,6 +1,4 @@
-﻿using TemplateFoundation.IOC;
-
-namespace TemplateFoundation.IOCFoundation
+﻿namespace TemplateFoundation.IOCFoundation
 {
     public class IOC
     {

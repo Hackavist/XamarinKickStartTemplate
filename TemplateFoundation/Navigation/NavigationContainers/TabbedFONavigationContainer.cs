@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TemplateFoundation.ExtensionMethods;
+using TemplateFoundation.IOCFoundation;
 using TemplateFoundation.Navigation.Implementations;
 using TemplateFoundation.Navigation.Interfaces;
+using TemplateFoundation.ViewModelFoundation;
+
 using Xamarin.Forms;
 
 namespace TemplateFoundation.Navigation.NavigationContainers
 {
     /// <summary>
-    /// This Tabbed navigation container for when you only want the tabs 
-    /// to appear on the first page and then push to a second page without tabs
+    ///     This Tabbed navigation container for when you only want the tabs
+    ///     to appear on the first page and then push to a second page without tabs
     /// </summary>
     public class TabbedFONavigationContainer : NavigationPage, INavigationService
     {
-        private readonly TabbedPage _innerTabbedPage;
-        public TabbedPage FirstTabbedPage => _innerTabbedPage;
-        private readonly List<Page> _tabs = new List<Page>();
-        public IEnumerable<Page> TabbedPages { get { return _tabs; } }
+        public TabbedPage FirstTabbedPage { get; }
 
-        public TabbedFONavigationContainer(string titleOfFirstTab) : this(titleOfFirstTab, NavigationConstants.DefaultNavigationServiceName)
+        public IEnumerable<Page> TabbedPages => _tabs;
+        private readonly List<Page> _tabs = new List<Page>();
+
+        public TabbedFONavigationContainer(string titleOfFirstTab) : this(titleOfFirstTab,
+            NavigationConstants.DefaultNavigationServiceName)
         {
         }
 
@@ -27,25 +32,66 @@ namespace TemplateFoundation.Navigation.NavigationContainers
         {
             NavigationServiceName = navigationServiceName;
             RegisterNavigation();
-            _innerTabbedPage = (TabbedPage)this.CurrentPage;
-            _innerTabbedPage.Title = titleOfFirstTab;
+            FirstTabbedPage = (TabbedPage)CurrentPage;
+            FirstTabbedPage.Title = titleOfFirstTab;
+        }
+
+        public Task PushPage(Page page, BaseViewModel model, bool modal = false, bool animate = true)
+        {
+            return modal ? Navigation.PushModalAsync(CreateContainerPageSafe(page)) : Navigation.PushAsync(page);
+        }
+
+        public Task PopPage(bool modal = false, bool animate = true)
+        {
+            return modal ? Navigation.PopModalAsync(animate) : Navigation.PopAsync(animate);
+        }
+
+        public Task PopToRoot(bool animate = true)
+        {
+            return Navigation.PopToRootAsync(animate);
+        }
+
+        public string NavigationServiceName { get; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            foreach (Page page in FirstTabbedPage.Children) (page as NavigationPage)?.NotifyAllChildrenPopped();
+        }
+
+        public Task<BaseViewModel> SwitchSelectedRootPageModel<T>() where T : BaseViewModel
+        {
+            if (CurrentPage == FirstTabbedPage)
+            {
+                var page = _tabs.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
+                if (page > -1)
+                {
+                    FirstTabbedPage.CurrentPage = FirstTabbedPage.Children[page];
+                    return Task.FromResult(FirstTabbedPage.CurrentPage.GetModel());
+                }
+            }
+            else
+            {
+                throw new Exception("Cannot switch tabs when the tab screen is not visible");
+            }
+
+            return null;
         }
 
         protected void RegisterNavigation()
         {
-            IOCFoundation.IOC.Container.Register<INavigationService>(this, NavigationServiceName);
+            IOC.Container.Register<INavigationService>(this, NavigationServiceName);
         }
 
         public virtual Page AddTab<T>(string title, string icon, object data = null) where T : BaseViewModel
         {
-            var page = ViewModelResolver.ResolveViewModel<T>(data);
+            Page page = ViewModelResolver.ResolveViewModel<T>(data);
             page.GetModel().CurrentNavigationServiceName = NavigationServiceName;
             _tabs.Add(page);
-            var container = CreateContainerPageSafe(page);
+            Page container = CreateContainerPageSafe(page);
             container.Title = title;
             if (!string.IsNullOrWhiteSpace(icon))
-                container.Icon = icon;
-            _innerTabbedPage.Children.Add(container);
+                container.IconImageSource = icon;
+            FirstTabbedPage.Children.Add(container);
             return container;
         }
 
@@ -61,55 +107,5 @@ namespace TemplateFoundation.Navigation.NavigationContainers
         {
             return page;
         }
-
-        public System.Threading.Tasks.Task PushPage(Xamarin.Forms.Page page, BaseViewModel model, bool modal = false, bool animate = true)
-        {
-            if (modal)
-                return this.Navigation.PushModalAsync(CreateContainerPageSafe(page));
-            return this.Navigation.PushAsync(page);
-        }
-
-        public System.Threading.Tasks.Task PopPage(bool modal = false, bool animate = true)
-        {
-            if (modal)
-                return this.Navigation.PopModalAsync(animate);
-            return this.Navigation.PopAsync(animate);
-        }
-
-        public Task PopToRoot(bool animate = true)
-        {
-            return this.Navigation.PopToRootAsync(animate);
-        }
-
-        public string NavigationServiceName { get; private set; }
-
-        public void NotifyChildrenPageWasPopped()
-        {
-            foreach (var page in _innerTabbedPage.Children)
-            {
-                if (page is NavigationPage)
-                    ((NavigationPage)page).NotifyAllChildrenPopped();
-            }
-        }
-
-        public Task<BaseViewModel> SwitchSelectedRootPageModel<T>() where T : BaseViewModel
-        {
-            if (this.CurrentPage == _innerTabbedPage)
-            {
-                var page = _tabs.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
-                if (page > -1)
-                {
-                    _innerTabbedPage.CurrentPage = this._innerTabbedPage.Children[page];
-                    return Task.FromResult(_innerTabbedPage.CurrentPage.GetModel());
-                }
-            }
-            else
-            {
-                throw new Exception("Cannot switch tabs when the tab screen is not visible");
-            }
-
-            return null;
-        }
     }
 }
-

@@ -1,24 +1,25 @@
-﻿using Xamarin.Forms;
-using TemplateFoundation.BaseViewModel;
+﻿using TemplateFoundation.ViewModelFoundation;
+using Xamarin.Forms;
+
 namespace TemplateFoundation.ExtensionMethods
 {
     public static class PageExtensions
     {
         public static BaseViewModel GetModel(this Page page)
         {
-            var pageModel = page.BindingContext as BaseViewModel;
+            BaseViewModel pageModel = page.BindingContext as BaseViewModel;
             return pageModel;
         }
 
         public static void NotifyAllChildrenPopped(this NavigationPage navigationPage)
         {
-            foreach (var page in navigationPage.Navigation.ModalStack)
+            foreach (Page page in navigationPage.Navigation.ModalStack)
             {
                 BaseViewModel pageModel = page.GetModel();
                 pageModel?.RaisePageWasPopped();
             }
 
-            foreach (var page in navigationPage.Navigation.NavigationStack)
+            foreach (Page page in navigationPage.Navigation.NavigationStack)
             {
                 BaseViewModel pageModel = page.GetModel();
                 pageModel?.RaisePageWasPopped();
@@ -26,4 +27,3 @@ namespace TemplateFoundation.ExtensionMethods
         }
     }
 }
-
