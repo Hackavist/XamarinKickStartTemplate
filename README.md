@@ -59,7 +59,7 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 All it needs is the collection you what to search in , the name of the property or the expression you are searching for and your search query
 
-\* all String are done using the LCS (Longest Common Subsequence) Algorithm more on that [Here](https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/).
+\* All string comparisons are done using the LCS (Longest Common Subsequence) Algorithm more on that [Here](https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/).
 
 ``` c#
         /// <summary>
