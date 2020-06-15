@@ -12,7 +12,7 @@ Just Click _Use This Template_ in the Project's Github Repo.
 The _Xamarin Kick Starter Template_ Cuts the project start overhead by providing you with some of the most commonly used services and nugets packs for every Xamarin Forms Project.
 
 ## Basic Features
-_This Template is based upon our Own Modified Version Of [Fresh MVVM](https://github.com/rid00z/FreshMvvm)_.
+_This Template is based upon our Own Modified Version Of [Fresh MVVM](https://github.com/rid00z/FreshMvvm)_ , [Xamarin forms](https://github.com/xamarin/Xamarin.Forms) and [Xamarin Essentials](https://github.com/xamarin/Essentials).
 
 * MVVM File Structure (with some extra folders for Converters, Custom Controls, etc...).
 
@@ -118,11 +118,35 @@ Get all what you need from a local database just at your finger tips with the ``
 
 ## Future Work
 
+* Local Notifications Service
+
 * Set MasterDetailsPage Design 
+
 * Async Command Set task Result (to prevent multiple clicks on any giving button)
+
 * On the Fly object validators 
+
 * Basic Converters
 
+## Issues and Bugs Reporting  
+
+For any issue or bug found please open an _issue_ stating 
+1. What was your expected output?
+
+1. What was the actual output?
+
+1. Any supprting screen shots or code snippits 
+
+
+## Contributing 
+
+Contributing is most welcomed you can contribute by 
+
+1. sending a pull request that includes your changes and suggestions
+
+or 
+
+2. Opening up an issue explaining the suggestion or the feature with an enhancment tag on it
 
 
 
