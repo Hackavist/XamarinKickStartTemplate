@@ -19,6 +19,8 @@
     <Folder Include="Navigation\Interfaces\" />
     <Folder Include="Navigation\Implementations\" />
     <Folder Include="Navigation\NavigationContainers\" />
+    <Folder Include="Helpers\HelperServices\" />
+    <Folder Include="Helpers\HelperModels\" />
     <Folder Include="PageFoundation\" />
   </ItemGroup>
 
