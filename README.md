@@ -30,7 +30,7 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * Automatic Refresh on Property Change using  [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged).
 
-* Elements State managment Using [Xamarin.Forms.StateSquid](https://github.com/sthewissen/Xamarin.Forms.StateSquid).
+* Elements State managment using [Xamarin.Forms.StateSquid](https://github.com/sthewissen/Xamarin.Forms.StateSquid).
 
 * User Dialogs and loading Screens using [ACR User Dialogs](https://github.com/aritchie/userdialogs).
 
@@ -38,13 +38,15 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * Weak Event Handeling
 
+* Async Command Support
+
 ## HomeGrown Features
 
 * In Memory LCS (Longest Common Subsequence) Generic Search.
 
 * SQL Lite Local Database Service.
 
-* String Formating extensions.
+* String formating extensions.
 
 * NullorEmpty checks inside the Objects\*.(for string feilds only).
 
