@@ -39,11 +39,11 @@ namespace TemplateFoundation.ExtensionMethods
                 throw new ArgumentNullException(nameof(property));
 
             if (!(property.Body is MemberExpression body))
-                throw new ArgumentException("Expression is not a property", "property");
+                throw new ArgumentException("Expression is not a property", nameof(property));
 
             var propertyInfo = body.Member as PropertyInfo;
             if (propertyInfo == null)
-                throw new ArgumentException("Expression is not a property", "property");
+                throw new ArgumentException("Expression is not a property", nameof(property));
 
             return propertyInfo;
         }

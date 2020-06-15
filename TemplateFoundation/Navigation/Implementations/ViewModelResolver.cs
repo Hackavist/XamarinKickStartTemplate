@@ -18,7 +18,7 @@ namespace TemplateFoundation.Navigation.Implementations
 
         public static Page ResolveViewModel<T>(object initData) where T : BaseViewModel
         {
-            var viewModel = IOC.Container.Resolve<T>();
+            var viewModel = Ioc.Container.Resolve<T>();
 
             return ResolveViewModel(initData, viewModel);
         }
@@ -31,7 +31,7 @@ namespace TemplateFoundation.Navigation.Implementations
 
         public static Page ResolveViewModel(Type type, object data)
         {
-            var viewModel = IOC.Container.Resolve(type) as BaseViewModel;
+            var viewModel = Ioc.Container.Resolve(type) as BaseViewModel;
             return ResolveViewModel(type, data, viewModel);
         }
 
@@ -42,7 +42,7 @@ namespace TemplateFoundation.Navigation.Implementations
             if (pageType == null)
                 throw new Exception(name + " not found");
 
-            var page = (Page) IOC.Container.Resolve(pageType);
+            var page = (Page) Ioc.Container.Resolve(pageType);
 
             BindingViewModel(data, page, viewModel);
 

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using TemplateFoundation.Commands.WeakEventManager;
 using TemplateFoundation.Navigation;
 using TemplateFoundation.ViewModelFoundation.Interfaces;
 
@@ -60,11 +60,7 @@ namespace TemplateFoundation.ViewModelFoundation
 
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         internal void WireEvents(Page page)
@@ -89,7 +85,7 @@ namespace TemplateFoundation.ViewModelFoundation
         public string CurrentNavigationServiceName = NavigationConstants.DefaultNavigationServiceName;
 
         /// <summary>
-        /// This means the current PageModel is shown modally and can be pop'd modally
+        /// This means the current PageModel is shown modally and can be popped modally
         /// </summary>
         public bool IsModalAndHasPreviousNavigationStack()
         {
@@ -119,8 +115,7 @@ namespace TemplateFoundation.ViewModelFoundation
         /// </summary>
         void AttachPageWasPoppedEvent()
         {
-            var navPage = (this.CurrentPage.Parent as NavigationPage);
-            if (navPage != null)
+            if (CurrentPage.Parent is NavigationPage navPage)
             {
                 _navigationPage = navPage;
                 _alreadyAttached = true;
@@ -138,11 +133,9 @@ namespace TemplateFoundation.ViewModelFoundation
 
         public void RaisePageWasPopped()
         {
-            if (PageWasPopped != null)
-                PageWasPopped(this, EventArgs.Empty);
+            PageWasPopped?.Invoke(this, EventArgs.Empty);
 
-            var navPage = (this.CurrentPage.Parent as NavigationPage);
-            if (navPage != null)
+            if (this.CurrentPage.Parent is NavigationPage navPage)
                 navPage.Popped -= HandleNavPagePopped;
 
             if (_navigationPage != null)

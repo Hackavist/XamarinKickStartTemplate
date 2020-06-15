@@ -1,6 +1,6 @@
 ﻿namespace TemplateFoundation.IOCFoundation
 {
-    public class IOC
+    public static class Ioc
     {
         private static ITinyIOC _freshIocContainer;
 

@@ -79,7 +79,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
 
         protected void RegisterNavigation()
         {
-            IOC.Container.Register<INavigationService>(this, NavigationServiceName);
+            Ioc.Container.Register<INavigationService>(this, NavigationServiceName);
         }
 
         public virtual Page AddTab<T>(string title, string icon, object data = null) where T : BaseViewModel

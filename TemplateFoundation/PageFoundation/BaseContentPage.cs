@@ -44,7 +44,7 @@ namespace TemplateFoundation.PageFoundation
         protected override bool OnBackButtonPressed()
         {
             var navContainer =
-                IOCFoundation.IOC.Container.Resolve<INavigationService>(NavigationConstants.DefaultNavigationServiceName);
+                IOCFoundation.Ioc.Container.Resolve<INavigationService>(NavigationConstants.DefaultNavigationServiceName);
             if (Application.Current.MainPage.Navigation.NavigationStack.Count() == 1) return true;
             return base.OnBackButtonPressed();
         }

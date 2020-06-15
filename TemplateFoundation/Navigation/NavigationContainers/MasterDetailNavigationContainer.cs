@@ -67,10 +67,10 @@ namespace TemplateFoundation.Navigation.NavigationContainers
                 (page as INavigationService)?.NotifyChildrenPageWasPopped();
             }
 
-            if (Pages != null && !Pages.ContainsValue(Detail) && Detail is NavigationPage)
-                ((NavigationPage)Detail).NotifyAllChildrenPopped();
-            if (Pages != null && !Pages.ContainsValue(Detail) && Detail is INavigationService)
-                ((INavigationService)Detail).NotifyChildrenPageWasPopped();
+            if (Pages != null && !Pages.ContainsValue(Detail))
+                (Detail as NavigationPage)?.NotifyAllChildrenPopped();
+            if (Pages != null && !Pages.ContainsValue(Detail))
+                (Detail as INavigationService)?.NotifyChildrenPageWasPopped();
         }
 
         public Task<BaseViewModel> SwitchSelectedRootPageModel<T>() where T : BaseViewModel
@@ -96,7 +96,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
 
         protected virtual void RegisterNavigation()
         {
-            IOC.Container.Register<INavigationService>(this, NavigationServiceName);
+            Ioc.Container.Register<INavigationService>(this, NavigationServiceName);
         }
 
         private void AddPagesToDictionary(Page page)

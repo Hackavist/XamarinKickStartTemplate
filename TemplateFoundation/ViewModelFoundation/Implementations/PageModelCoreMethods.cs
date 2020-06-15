@@ -44,7 +44,7 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         public async Task PushPageModel<T>(Action<T> setPageModel, bool modal = false, bool animate = true) where T : ViewModelFoundation.BaseViewModel
         {
-            T pageModel = IOCFoundation.IOC.Container.Resolve<T>();
+            T pageModel = IOCFoundation.Ioc.Container.Resolve<T>();
 
             setPageModel?.Invoke(pageModel);
 
@@ -53,15 +53,15 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         public async Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : ViewModelFoundation.BaseViewModel
         {
-            T pageModel = IOCFoundation.IOC.Container.Resolve<T>();
+            T pageModel = IOCFoundation.Ioc.Container.Resolve<T>();
 
             await PushPageModel(pageModel, data, modal, animate);
         }
 
         public async Task PushPageModel<T, TPage>(object data, bool modal = false, bool animate = true) where T : ViewModelFoundation.BaseViewModel where TPage : Page
         {
-            T pageModel = IOCFoundation.IOC.Container.Resolve<T>();
-            TPage page = IOCFoundation.IOC.Container.Resolve<TPage>();
+            T pageModel = IOCFoundation.Ioc.Container.Resolve<T>();
+            TPage page = IOCFoundation.Ioc.Container.Resolve<TPage>();
             ViewModelResolver.BindingViewModel(data, page, pageModel);
             await PushPageModelWithPage(page, pageModel, data, modal, animate);
         }
@@ -73,7 +73,7 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         public Task PushPageModel(Type pageModelType, object data, bool modal = false, bool animate = true)
         {
-            var pageModel = IOCFoundation.IOC.Container.Resolve(pageModelType) as ViewModelFoundation.BaseViewModel;
+            var pageModel = IOCFoundation.Ioc.Container.Resolve(pageModelType) as ViewModelFoundation.BaseViewModel;
 
             return PushPageModel(pageModel, data, modal, animate);
         }
@@ -102,7 +102,7 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
             }
             else
             {
-                INavigationService rootNavigation = IOCFoundation.IOC.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+                INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
 
                 await rootNavigation.PushPage(page, pageModel, modal, animate);
             }
@@ -120,14 +120,14 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
                 if (modal)
                     this._currentPageModel.RaisePageWasPopped();
 
-                INavigationService rootNavigation = IOCFoundation.IOC.Container.Resolve<INavigationService>(navServiceName);
+                INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(navServiceName);
                 await rootNavigation.PopPage(modal, animate);
             }
         }
 
         public async Task PopToRoot(bool animate)
         {
-            INavigationService rootNavigation = IOCFoundation.IOC.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
             await rootNavigation.PopToRoot(animate);
         }
 
@@ -192,13 +192,13 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
                 pageModel.IsModalFirstChild = true;
             }
 
-            INavigationService rootNavigation = IOCFoundation.IOC.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
             await rootNavigation.PushPage(navPage, null, true, animate);
         }
 
         public void SwitchOutRootNavigation(string navigationServiceName)
         {
-            INavigationService rootNavigation = IOCFoundation.IOC.Container.Resolve<INavigationService>(navigationServiceName);
+            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(navigationServiceName);
 
             if (!(rootNavigation is Page))
                 throw new Exception("Navigation service is not a page");
@@ -208,13 +208,13 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         public async Task PopModalNavigationService(bool animate = true)
         {
-            var currentNavigationService = IOCFoundation.IOC.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            var currentNavigationService = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
             currentNavigationService.NotifyChildrenPageWasPopped();
 
-            IOCFoundation.IOC.Container.Unregister<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            IOCFoundation.Ioc.Container.Unregister<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
 
             var navServiceName = _currentPageModel.PreviousNavigationServiceName;
-            INavigationService rootNavigation = IOCFoundation.IOC.Container.Resolve<INavigationService>(navServiceName);
+            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(navServiceName);
             await rootNavigation.PopPage(animate);
         }
 
@@ -223,7 +223,7 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
         /// </summary>
         public Task<ViewModelFoundation.BaseViewModel> SwitchSelectedRootPageModel<T>() where T : ViewModelFoundation.BaseViewModel
         {
-            var currentNavigationService = IOCFoundation.IOC.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            var currentNavigationService = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
 
             return currentNavigationService.SwitchSelectedRootPageModel<T>();
         }

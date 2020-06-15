@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using TemplateFoundation.ExtensionMethods;
 using TemplateFoundation.IOCFoundation;
 using TemplateFoundation.Navigation.Implementations;
 using TemplateFoundation.Navigation.Interfaces;
 using TemplateFoundation.ViewModelFoundation;
+
 using Xamarin.Forms;
 
 namespace TemplateFoundation.Navigation.NavigationContainers
@@ -48,8 +50,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
         {
             foreach (Page page in Children)
             {
-                if (page is NavigationPage)
-                    ((NavigationPage) page).NotifyAllChildrenPopped();
+                (page as NavigationPage)?.NotifyAllChildrenPopped();
             }
         }
 
@@ -70,7 +71,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
 
         protected void RegisterNavigation()
         {
-            IOC.Container.Register<INavigationService>(this, NavigationServiceName);
+            Ioc.Container.Register<INavigationService>(this, NavigationServiceName);
         }
 
         public virtual Page AddTab<T>(string title, string icon, object data = null) where T : BaseViewModel
