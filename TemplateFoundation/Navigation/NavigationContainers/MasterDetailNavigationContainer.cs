@@ -105,8 +105,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
             viewModel.CurrentNavigationServiceName = NavigationServiceName;
             _pagesInner.Add(page);
             Page navigationContainer = CreateContainerPage(page);
-            if (string.IsNullOrEmpty(viewModel.Title))
-                throw new Exception("no Title found for " + viewModel.GetType().Name);
+            if (string.IsNullOrEmpty(viewModel.Title)) throw new Exception("no Title found for " + viewModel.GetType().Name);
             Pages.Add(viewModel.Title, navigationContainer);
             PageNames.Add(viewModel.Title);
             if (Pages.Count == 1)

@@ -2,14 +2,14 @@
 {
     public static class Ioc
     {
-        private static ITinyIOC _freshIocContainer;
+        private static ITinyIoc _freshIocContainer;
 
-        public static ITinyIOC Container
+        public static ITinyIoc Container
         {
             get { return _freshIocContainer ??= new FreshTinyIocBuiltIn(); }
         }
 
-        public static void OverrideContainer(ITinyIOC overrideContainer)
+        public static void OverrideContainer(ITinyIoc overrideContainer)
         {
             _freshIocContainer = overrideContainer;
         }

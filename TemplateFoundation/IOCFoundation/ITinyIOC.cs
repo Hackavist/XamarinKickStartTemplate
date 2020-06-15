@@ -3,7 +3,7 @@ using TemplateFoundation.IOCFoundation.TinyIoC;
 
 namespace TemplateFoundation.IOCFoundation
 {
-    public interface ITinyIOC
+    public interface ITinyIoc
     {
         object Resolve(Type resolveType);
         TinyIoCContainer.RegisterOptions Register<TRegisterType>(TRegisterType instance) where TRegisterType : class;

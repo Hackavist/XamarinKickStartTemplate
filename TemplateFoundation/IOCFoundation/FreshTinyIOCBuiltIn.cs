@@ -6,7 +6,7 @@ namespace TemplateFoundation.IOCFoundation
     /// <summary>
     ///     Built in TinyIOC for ease of use
     /// </summary>
-    public class FreshTinyIocBuiltIn : ITinyIOC
+    public class FreshTinyIocBuiltIn : ITinyIoc
     {
         public static TinyIoCContainer Current => TinyIoCContainer.Current;
 
@@ -51,7 +51,7 @@ namespace TemplateFoundation.IOCFoundation
             TinyIoCContainer.Current.Unregister<TRegisterType>(name);
         }
 
-        TinyIoCContainer.RegisterOptions ITinyIOC.Register<TRegisterType>(TRegisterType instance)
+        TinyIoCContainer.RegisterOptions ITinyIoc.Register<TRegisterType>(TRegisterType instance)
         {
             throw new NotImplementedException();
         }
