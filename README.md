@@ -128,6 +128,8 @@ Get all what you need from a local database just at your finger tips with the ``
 
 * Basic Converters
 
+* Error Logger
+
 ## Issues and Bugs Reporting  
 
 For any issue or bug found please open an _issue_ stating 
