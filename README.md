@@ -26,6 +26,8 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * Built in IOC Container
 
+* iOS safe area and large titles configrability.
+
 ## Additional Features
 
 * Automatic Refresh on Property Change using  [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged).
@@ -38,9 +40,9 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * Media Plugin for Xamarin Using [MediaPlugin](https://github.com/jamesmontemagno/MediaPlugin).
 
-* Weak Event Handeling
+* Weak Event Handeling.
 
-* Async Command Support
+* Async Command Support.
 
 ## HomeGrown Features
 
