@@ -12,7 +12,7 @@ Just Click _Use This Template_ in the Project's Github Repo.
 The _Xamarin Kick Starter Template_ Cuts the project start overhead by providing you with some of the most commonly used services and nugets packs for every Xamarin Forms Project.
 
 ## Basic Features
-_This Template is based upon our Own Modified Version Of [Fresh MVVM](https://github.com/rid00z/FreshMvvm)_ , [Xamarin forms](https://github.com/xamarin/Xamarin.Forms) and [Xamarin Essentials](https://github.com/xamarin/Essentials).
+_This Template is based upon our Own Modified Version Of [Fresh MVVM](https://github.com/rid00z/FreshMvvm), [Xamarin forms](https://github.com/xamarin/Xamarin.Forms) and [Xamarin Essentials](https://github.com/xamarin/Essentials)_.
 
 * MVVM File Structure (with some extra folders for Converters, Custom Controls, etc...).
 
@@ -71,7 +71,7 @@ All it needs is the collection you what to search in , the name of the property 
         /// <param name="collection"></param>
         /// <param name="targetProperty"></param>
         /// <param name="query"></param>
-        /// <returns></returns>
+        /// <returns> Returns IEnumrable of objects in the collection where its target property is identical or similar to the query string</returns>
         public static IEnumerable<T> SearchInCollection<T>(IEnumerable<T> collection, string targetProperty, string query)
 ```
 
@@ -85,8 +85,55 @@ or
         /// <param name="collection"></param>
         /// <param name="targetPropertyFunc"></param>
         /// <param name="query"></param>
-        /// <returns></returns>
+        /// <returns>Returns IEnumrable of objects in the collection where its target property is identical or similar to the query string</returns>
         public static IEnumerable<T> SearchInCollection<T>(IEnumerable<T> collection, Func<T, string> targetPropertyFunc,string query)
+```
+
+### Local Notification Service
+
+Get local notifications right at ur finger tips with minimal effort using the ``` ILocalNotificationService``` interface
+
+``` C#
+    public interface ILocalNotificationService
+    {
+        /// <summary>
+        ///     The Executed Behaviour when the app receives a notification
+        /// </summary>
+        event EventHandler NotificationReceived;
+
+        /// <summary>
+        ///     Executes the platform Specific service initiation code
+        /// </summary>
+        void Initialize();
+
+        /// <summary>
+        ///     Show a local notification now
+        /// </summary>
+        /// <param name="title">Title of the notification</param>
+        /// <param name="body">Body or description of the notification</param>
+        /// <param name="id">Id of the notification</param>
+        void Notify(string title, string body, int id = 0);
+
+        /// <summary>
+        ///     Show a local notification at a certain date and time
+        /// </summary>
+        /// <param name="title">Title of the notification</param>
+        /// <param name="body">Body or description of the notification</param>
+        /// <param name="notificationDateTime"> The date and time the notification should be fired </param>
+        /// <param name="id">Id of the notification</param>
+        void Notify(string title, string body, DateTime notificationDateTime, int id = 0);
+
+        /// <summary>
+        ///     Cancel a local notification
+        /// </summary>
+        /// <param name="id">Id of the notification to cancel</param>
+        void Cancel(int id);
+
+        /// <summary>
+        ///     Channels the parameters to the "NotificationReceived" event when a notification is fired
+        /// </summary>
+        void ReceiveNotification(string title, string message);
+    }
 ```
 
 

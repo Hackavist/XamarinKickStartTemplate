@@ -52,7 +52,7 @@ namespace TemplateFoundation.PageFoundation
 
         protected override bool OnBackButtonPressed()
         {
-            INavigationService navContainer = Ioc.Container.Resolve<INavigationService>(NavigationConstants.DefaultNavigationServiceName);
+            //INavigationService navContainer = Ioc.Container.Resolve<INavigationService>(NavigationConstants.DefaultNavigationServiceName);
             return Application.Current.MainPage.Navigation.NavigationStack.Count() == 1 || base.OnBackButtonPressed();
         }
     }
