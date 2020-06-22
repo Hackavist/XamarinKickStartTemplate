@@ -16,7 +16,7 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * MVVM File Structure (with some extra folders for Converters, Custom Controls, etc...).
 
-* PageModel to PageModel Navigation
+* ViewModel to ViewModel Navigation
 
 * Automatic wiring of BindingContext
 
@@ -95,7 +95,7 @@ or
 
 Get local notifications right at ur finger tips with minimal effort using the ``` ILocalNotificationService``` interface.
 
-You can  fire it on spot or schedule it for a certain date and time.
+You can fire it on spot or schedule it for a certain date and time.
 
 ``` C#
     public interface ILocalNotificationService
