@@ -97,7 +97,7 @@ Get local notifications right at ur finger tips with minimal effort using the ``
 
 You can fire it on spot or schedule it for a certain date and time.
 
-``` C#
+``` c#
     public interface ILocalNotificationService
     {
         /// <summary>
@@ -145,7 +145,7 @@ You can fire it on spot or schedule it for a certain date and time.
 
 Get all what you need from a local database just at your finger tips with the ```ILocalDatabaseService``` interface
 
-``` C#
+``` c#
  public interface ILocalDatabaseService
     {
         Task CreateDatabaseTables(List<Type> tables);
