@@ -50,6 +50,8 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 * SQL Lite Local Database Service.
 
+* Local Notifications Service.
+
 * String formating extensions.
 
 * NullorEmpty checks inside the Objects\*.(for string feilds only).
@@ -59,7 +61,7 @@ _This Template is based upon our Own Modified Version Of [Fresh MVVM](https://gi
 
 ### In Memory LCS (Longest Common Subsequence) Generic Search
 
-All it needs is the collection you what to search in , the name of the property or the expression you are searching for and your search query
+All it needs is the collection you what to search in , the name of the property or the expression you are searching for and your search query.
 
 \* All string comparisons are done using the LCS (Longest Common Subsequence) Algorithm more on that [Here](https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/).
 
@@ -91,7 +93,9 @@ or
 
 ### Local Notification Service
 
-Get local notifications right at ur finger tips with minimal effort using the ``` ILocalNotificationService``` interface
+Get local notifications right at ur finger tips with minimal effort using the ``` ILocalNotificationService``` interface.
+
+You can  fire it on spot or schedule it for a certain date and time.
 
 ``` C#
     public interface ILocalNotificationService
