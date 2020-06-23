@@ -32,6 +32,6 @@
   <ItemGroup>
     <Folder Include="Constants\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
 </Project>

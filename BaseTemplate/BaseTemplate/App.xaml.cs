@@ -1,5 +1,9 @@
 ﻿using System;
-
+using BaseTemplate.Services.FileSystemService;
+using BaseTemplate.Services.LocalDatabaseService;
+using BaseTemplate.ViewModels;
+using TemplateFoundation.IOCFoundation;
+using TemplateFoundation.Navigation.NavigationContainers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,19 +15,33 @@ namespace BaseTemplate
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            SetupDependencyInjection();
+            CreateDataBaseTables();
+            SetDefaultLanguage();
+            SetStartPage();
         }
 
-        protected override void OnStart()
+        private void SetupDependencyInjection()
+        {
+            Ioc.Container.Register<ILocalDatabaseService, LocalDatabaseService>().AsSingleton();
+            Ioc.Container.Register<IFileSystemService, FileSystemService>().AsSingleton();
+        }
+
+        private void CreateDataBaseTables()
+        {
+
+        }
+
+        private void SetDefaultLanguage()
         {
         }
 
-        protected override void OnSleep()
+        private void SetStartPage()
         {
-        }
-
-        protected override void OnResume()
-        {
+            var masterDetailNav = new MasterDetailNavigationContainer();
+            masterDetailNav.Init("Menu");
+            masterDetailNav.AddPage<MainViewModel>("Home");
+            MainPage = masterDetailNav;
         }
     }
 }
