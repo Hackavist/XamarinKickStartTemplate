@@ -7,8 +7,10 @@
         <StackLayout>
             <Label
                 HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin Kick Template"
+                Text="Welcome to xamarin kick"
                 VerticalOptions="CenterAndExpand" />
+            <Button Clicked="Button_Clicked" Text="click me" />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

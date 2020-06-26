@@ -11,5 +11,13 @@ namespace BaseTemplate.Pages
         {
             InitializeComponent();
         }
+
+        void Button_Clicked(System.Object sender, System.EventArgs e)
+        {
+         
+            int i = 0;
+           
+            var x = 10 / i;
+        }
     }
 }

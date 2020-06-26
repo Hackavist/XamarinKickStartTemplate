@@ -7,7 +7,7 @@ namespace BaseTemplate.ViewModels
     {
         public MainViewModel()
         {
-            Title = "Main";
+            Title = "MainPage";
         }
     }
 }
