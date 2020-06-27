@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using BaseTemplate.Constants;
 using SQLite;
 using SQLiteNetExtensionsAsync.Extensions;
 using Xamarin.Essentials;
@@ -11,11 +12,6 @@ namespace BaseTemplate.Services.LocalDatabaseService
 {
     public class LocalDatabaseService : ILocalDatabaseService
     {
-        #region Constants
-
-        public const string DatabaseFilename = "localDatabase.db3";
-
-        #endregion
 
         #region Flags
 
@@ -33,7 +29,7 @@ namespace BaseTemplate.Services.LocalDatabaseService
 
         #region Statics
 
-        public static string DatabasePath => Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
+        public static string DatabasePath => Path.Combine(FileSystem.AppDataDirectory, AppConstants.DatabaseFileName);
 
         private static readonly Lazy<SQLiteAsyncConnection> LazyInitializer =
             new Lazy<SQLiteAsyncConnection>(() => new SQLiteAsyncConnection(DatabasePath, Flags));

@@ -6,6 +6,7 @@ using Android.OS;
 using System;
 using System.Threading.Tasks;
 using BaseTemplate.Constants;
+using System.Diagnostics;
 
 namespace BaseTemplate.Droid
 {
@@ -69,7 +70,7 @@ namespace BaseTemplate.Droid
         // If there is an unhandled exception, the exception information is diplayed 
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
-        //[Conditional("DEBUG")]
+        [Conditional("DEBUG")]
         private void DisplayCrashReport()
         {
             var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);

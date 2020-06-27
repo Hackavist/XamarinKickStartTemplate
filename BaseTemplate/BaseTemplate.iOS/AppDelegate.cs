@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using BaseTemplate.Constants;
@@ -69,7 +70,7 @@ namespace BaseTemplate.iOS
         // If there is an unhandled exception, the exception information is diplayed 
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
-       // [Conditional("DEBUG")]
+        [Conditional("DEBUG")]
         private static void DisplayCrashReport()
         {
             var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
