@@ -161,7 +161,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
             Master = navPage;
         }
 
-        private void CreateMenuPage<T>(string masterListName) where T : BaseViewModel
+        public void CreateMenuPage<T>(string masterListName) where T : BaseViewModel
         {
             var masterpage = ViewModelResolver.ResolveViewModel<T>();
             var pagelist = masterpage.FindByName(masterListName);
