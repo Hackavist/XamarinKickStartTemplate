@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
+using BaseTemplate.Resources;
 using BaseTemplate.Services.FileSystemService;
 using BaseTemplate.Services.LocalDatabaseService;
 using BaseTemplate.ViewModels;
@@ -26,14 +29,22 @@ namespace BaseTemplate
             Ioc.Container.Register<ILocalDatabaseService, LocalDatabaseService>().AsSingleton();
             Ioc.Container.Register<IFileSystemService, FileSystemService>().AsSingleton();
         }
-
+        /// <summary>
+        /// Create your database tables that you need
+        /// </summary>
         private void CreateDataBaseTables()
         {
-
+           // Ioc.Container.Resolve<LocalDatabaseService>().CreateDatabaseTables(Send List of tabels);
         }
-
+        /// <summary>
+        /// Set your default language for the entire app
+        /// Just change cultureinfo ar,en,fr,es
+        /// </summary>
         private void SetDefaultLanguage()
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+
+            AppResources.Culture = new CultureInfo("en");
         }
 
         private void SetStartPage()
