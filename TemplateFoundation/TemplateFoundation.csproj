@@ -22,6 +22,10 @@
     <Folder Include="Helpers\HelperServices\" />
     <Folder Include="Helpers\HelperModels\" />
     <Folder Include="PageFoundation\" />
+    <Folder Include="Validation\" />
+    <Folder Include="Validation\Interfaces\" />
+    <Folder Include="Validation\Implementations\" />
+    <Folder Include="Validation\Rules\" />
   </ItemGroup>
 
 </Project>

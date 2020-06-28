@@ -34,6 +34,8 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Pages\" />
     <Folder Include="Resources\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Behaviors\Entries\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\MainPage.xaml.cs">
