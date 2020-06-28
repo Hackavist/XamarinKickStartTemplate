@@ -1,5 +1,4 @@
-﻿using System;
-using TemplateFoundation.ViewModelFoundation;
+﻿using TemplateFoundation.ViewModelFoundation;
 
 namespace BaseTemplate.ViewModels
 {

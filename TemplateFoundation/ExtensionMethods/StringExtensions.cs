@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace TemplateFoundation.ExtensionMethods
 {
@@ -12,12 +10,13 @@ namespace TemplateFoundation.ExtensionMethods
             StringBuilder builder = new StringBuilder(s);
             for (int i = 1; i < builder.Length; i++)
             {
-                if (Char.IsUpper(builder[i]))
+                if (char.IsUpper(builder[i]))
                 {
                     builder.Insert(i, ' ');
                     i++;
                 }
             }
+
             return builder.ToString();
         }
 
@@ -25,13 +24,9 @@ namespace TemplateFoundation.ExtensionMethods
         {
             s = FormatFromCamelCase(s).Trim();
             if (s.EndsWith('y'))
-            {
                 s = s.Remove(s.Length - 1) + "ies";
-            }
             else
-            {
                 s += "s";
-            }
             return s;
         }
     }

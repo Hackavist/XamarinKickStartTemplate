@@ -12,7 +12,7 @@ namespace TemplateFoundation.ViewModelFoundation
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        NavigationPage _navigationPage;
+        private NavigationPage _navigationPage;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

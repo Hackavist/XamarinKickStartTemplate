@@ -135,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
-      <Version>7.1.0.442</Version>
+      <Version>7.1.0.446</Version>
     </PackageReference>
     <PackageReference Include="Linq.Expression.Optimizer">
       <Version>1.0.13</Version>

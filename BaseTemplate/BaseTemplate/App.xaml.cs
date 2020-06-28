@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Threading;
 using BaseTemplate.Resources;
 using BaseTemplate.Services.FileSystemService;
@@ -8,7 +7,6 @@ using BaseTemplate.ViewModels;
 using TemplateFoundation.IOCFoundation;
 using TemplateFoundation.Navigation.NavigationContainers;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace BaseTemplate
 {
@@ -38,7 +36,7 @@ namespace BaseTemplate
         }
         /// <summary>
         /// Set your default language for the entire app
-        /// Just change cultureinfo ar,en,fr,es
+        /// Just change culture info ar,en,fr,es
         /// </summary>
         private void SetDefaultLanguage()
         {

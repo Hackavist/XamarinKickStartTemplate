@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using BaseTemplate.Constants;
 using Foundation;
@@ -51,12 +49,9 @@ namespace BaseTemplate.iOS
         {
             try
             {
-                var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
-                var errorFilePath = System.IO.Path.Combine(libraryPath, AppConstants.ErrorFileName);
-
-                var errorMessage = String.Format("Time: {0}\r\nError: Unhandled Exception\r\n{1}",
-                DateTime.Now, exception.ToString());
-
+                string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
+                string errorFilePath = System.IO.Path.Combine(libraryPath, AppConstants.ErrorFileName);
+                string errorMessage = $"Time: {DateTime.Now}\r\nError: Unhandled Exception\r\n{exception}";
 
                 System.IO.File.WriteAllText(errorFilePath, errorMessage);
 
@@ -66,10 +61,10 @@ namespace BaseTemplate.iOS
                 // just suppress any error logging exceptions
             }
         }
-        /// <summary>
-        // If there is an unhandled exception, the exception information is diplayed 
+
+        // If there is an unhandled exception, the exception information is displayed 
         // on screen the next time the app is started (only in debug configuration)
-        /// </summary>
+       
         [Conditional("DEBUG")]
         private static void DisplayCrashReport()
         {
