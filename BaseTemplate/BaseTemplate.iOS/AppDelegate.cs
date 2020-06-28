@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
 using BaseTemplate.Constants;
+
 using Foundation;
+
 using UIKit;
 
 namespace BaseTemplate.iOS
@@ -64,9 +67,9 @@ namespace BaseTemplate.iOS
 
         // If there is an unhandled exception, the exception information is displayed 
         // on screen the next time the app is started (only in debug configuration)
-       
+
         [Conditional("DEBUG")]
-        private static void DisplayCrashReport()
+        private void DisplayCrashReport()
         {
             var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
             var errorFilePath = System.IO.Path.Combine(libraryPath, AppConstants.ErrorFileName);
@@ -83,15 +86,21 @@ namespace BaseTemplate.iOS
                 return;
             }
 
-            var alertView = new UIAlertView("Crash Report", errorText, null, "Close", "Clear") { UserInteractionEnabled = true };
-            alertView.Clicked += (sender, args) =>
-            {
-                if (args.ButtonIndex != 0)
-                {
-                    System.IO.File.Delete(errorFilePath);
-                }
-            };
-            alertView.Show();
+            //var alertView = new UIAlertView("Crash Report", errorText, null, "Close", "Clear") { UserInteractionEnabled = true };
+            //alertView.Clicked += (sender, args) =>
+            //{
+            //    if (args.ButtonIndex != 0)
+            //    {
+            //        System.IO.File.Delete(errorFilePath);
+            //    }
+            //};
+            //alertView.Show();
+
+            UIAlertController okAlertController = UIAlertController.Create("Crash Report", errorText, UIAlertControllerStyle.Alert);
+            okAlertController.AddAction(UIAlertAction.Create("Dismiss", UIAlertActionStyle.Default, action => System.IO.File.Delete(errorFilePath)));
+            Window.MakeKeyAndVisible();
+            Window.RootViewController.PresentViewController(okAlertController, true, null);
+
         }
         #endregion
     }
