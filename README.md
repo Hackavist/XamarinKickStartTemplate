@@ -201,6 +201,10 @@ or
 
 2. Opening up an issue explaining the suggestion or the feature with an enhancment tag on it
 
+## Special Thanks 
+
+To [Mohamed Ashraf](https://github.com/Ananasa) for his amazing talents in the design
+
 
 
 
