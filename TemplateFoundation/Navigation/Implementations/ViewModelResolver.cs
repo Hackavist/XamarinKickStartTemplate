@@ -42,7 +42,7 @@ namespace TemplateFoundation.Navigation.Implementations
             if (pageType == null)
                 throw new Exception(name + " not found");
 
-            var page = (Page) Ioc.Container.Resolve(pageType);
+            var page = (Page)Ioc.Container.Resolve(pageType);
 
             BindingViewModel(data, page, viewModel);
 

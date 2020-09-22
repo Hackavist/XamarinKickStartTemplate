@@ -19,7 +19,7 @@ namespace BaseTemplate.Droid.Services.LocalNotificationService
     public class NotifierImplementation : ILocalNotificationService
     {
         private static NotificationManager NotificationManager =>
-            (NotificationManager) AndroidApp.Context.GetSystemService(Context.NotificationService);
+            (NotificationManager)AndroidApp.Context.GetSystemService(Context.NotificationService);
 
         private readonly string _channelId = $"{AndroidApp.Context.PackageName}.general";
         private bool _channelInitialized;
@@ -58,7 +58,7 @@ namespace BaseTemplate.Droid.Services.LocalNotificationService
             TaskStackBuilder stackBuilder = TaskStackBuilder.Create(AndroidApp.Context);
             stackBuilder.AddNextIntent(resultIntent);
             PendingIntent resultPendingIntent =
-                stackBuilder.GetPendingIntent(0, (int) PendingIntentFlags.UpdateCurrent);
+                stackBuilder.GetPendingIntent(0, (int)PendingIntentFlags.UpdateCurrent);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, _channelId)
                 .SetContentIntent(resultPendingIntent)
@@ -67,7 +67,7 @@ namespace BaseTemplate.Droid.Services.LocalNotificationService
                 .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources,
                     Resource.Drawable.notification_icon))
                 .SetSmallIcon(Resource.Drawable.notification_icon)
-                .SetDefaults((int) NotificationDefaults.All);
+                .SetDefaults((int)NotificationDefaults.All);
 
             Notification notification = builder.Build();
             NotificationManager.Notify(id, notification);

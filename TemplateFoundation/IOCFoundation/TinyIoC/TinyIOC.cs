@@ -100,8 +100,8 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
             lock (_padlock)
             {
                 var disposableItems = from item in _Dictionary.Values
-                        where item is IDisposable
-                    select item as IDisposable;
+                                      where item is IDisposable
+                                      select item as IDisposable;
 
                 foreach (var item in disposableItems)
                 {
@@ -181,7 +181,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
 
         public static PropertyInfo GetProperty(Type sourceType, string propertyName)
         {
-            var allProperties = sourceType.GetProperties (BindingFlags.Public | BindingFlags.Instance);
+            var allProperties = sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var property = allProperties.Where(
                 mi => string.Equals(propertyName, mi.Name, StringComparison.Ordinal)).ToList();
 
@@ -195,7 +195,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
 
         public static MethodInfo GetMethod(Type sourceType, string methodName)
         {
-            var allMethods = sourceType.GetMethods (BindingFlags.Public | BindingFlags.Instance);
+            var allMethods = sourceType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
             var methods = allMethods.Where(
                 mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).ToList();
 
@@ -323,7 +323,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
 
         public TinyIoCResolutionException(Type type, Exception innerException)
             : base(String.Format(ERROR_TEXT_WITHINNER, type.Name, innerException.Message), innerException)
-        {            
+        {
         }
     }
 
@@ -425,7 +425,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
         private static string GetTypesString(IEnumerable<Type> types)
         {
             var typeNames = from type in types
-                select type.FullName;
+                            select type.FullName;
 
             return string.Join(",", typeNames.ToArray());
         }
@@ -762,7 +762,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
         /// </summary>
         public void AutoRegister()
         {
-            AutoRegisterInternal(new Assembly[] {this.GetType().Assembly()}, true, null);
+            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly() }, true, null);
         }
 
         /// <summary>
@@ -775,7 +775,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
         public void AutoRegister(Func<Type, bool> registrationPredicate)
         {
-            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly()}, true, registrationPredicate);
+            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly() }, true, registrationPredicate);
         }
 
         /// <summary>
@@ -1138,10 +1138,10 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
             {
                 var queryForDuplicatedTypes = from i in implementationTypes
-                    group i by i
+                                              group i by i
                     into j
-                        where j.Count() > 1
-                    select j.Key.FullName;
+                                              where j.Count() > 1
+                                              select j.Key.FullName;
 
                 var fullNamesOfDuplicatedTypes = string.Join(",\n", queryForDuplicatedTypes.ToArray());
                 var multipleRegMessage = string.Format("types: The same implementation type cannot be specified multiple times for {0}\n\n{1}", registrationType.FullName, fullNamesOfDuplicatedTypes);
@@ -2252,8 +2252,8 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                 catch (TinyIoCResolutionException ex)
                 {
                     if (ex.InnerException != null)
-                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
-                    throw new TinyIoCResolutionException (registerType, ex);
+                        throw new TinyIoCResolutionException(registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException(registerType, ex);
                 }
             }
 
@@ -2301,12 +2301,12 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                 catch (Exception ex)
                 {
                     if (ex.InnerException != null)
-                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
-                    throw new TinyIoCResolutionException (registerType, ex);
+                        throw new TinyIoCResolutionException(registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException(registerType, ex);
                 }
             }
 
-            public DelegateFactory( Type registerType, Func<TinyIoCContainer, NamedParameterOverloads, object> factory)
+            public DelegateFactory(Type registerType, Func<TinyIoCContainer, NamedParameterOverloads, object> factory)
             {
                 if (factory == null)
                     throw new ArgumentNullException("factory");
@@ -2366,8 +2366,8 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                 catch (Exception ex)
                 {
                     if (ex.InnerException != null)
-                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
-                    throw new TinyIoCResolutionException (registerType, ex);
+                        throw new TinyIoCResolutionException(registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException(registerType, ex);
                 }
             }
 
@@ -2779,10 +2779,10 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
             }
         }
         private readonly SafeDictionary<TypeRegistration, ObjectFactoryBase> _RegisteredTypes;
-        #if COMPILED_EXPRESSIONS
+#if COMPILED_EXPRESSIONS
         private delegate object ObjectConstructor(params object[] parameters);
         private static readonly SafeDictionary<ConstructorInfo, ObjectConstructor> _ObjectConstructorCache = new SafeDictionary<ConstructorInfo, ObjectConstructor>();
-        #endif
+#endif
         #endregion
 
         #region Constructors
@@ -2810,8 +2810,8 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                 var types = assemblies.SelectMany(a => a.SafeGetTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
 
                 var concreteTypes = from type in types
-                        where (type.IsClass() == true) && (type.IsAbstract() == false) && (type != this.GetType() && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition()))
-                    select type;
+                                    where (type.IsClass() == true) && (type.IsAbstract() == false) && (type != this.GetType() && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition()))
+                                    select type;
 
                 foreach (var type in concreteTypes)
                 {
@@ -2826,14 +2826,14 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                 }
 
                 var abstractInterfaceTypes = from type in types
-                        where ((type.IsInterface() == true || type.IsAbstract() == true) && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition()))
-                    select type;
+                                             where ((type.IsInterface() == true || type.IsAbstract() == true) && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition()))
+                                             select type;
 
                 foreach (var type in abstractInterfaceTypes)
                 {
                     var implementations = from implementationType in concreteTypes
-                            where implementationType.GetInterfaces().Contains(type) || implementationType.BaseType() == type
-                        select implementationType;
+                                          where implementationType.GetInterfaces().Contains(type) || implementationType.BaseType() == type
+                                          select implementationType;
 
                     if (!ignoreDuplicateImplementations && implementations.Count() > 1)
                         throw new TinyIoCAutoRegistrationException(type, implementations);
@@ -2890,7 +2890,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
 
             if (registrationPredicate != null)
             {
-                ignoreChecks.Add(t => !registrationPredicate(t));    
+                ignoreChecks.Add(t => !registrationPredicate(t));
             }
 
             foreach (var check in ignoreChecks)
@@ -2906,11 +2906,11 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
         {
             Register<TinyIoCContainer>(this);
 
-            #if TINYMESSENGER
+#if TINYMESSENGER
             // Only register the TinyMessenger singleton if we are the root container
             if (_Parent == null)
             Register<TinyMessenger.ITinyMessengerHub, TinyMessenger.TinyMessengerHub>();
-            #endif
+#endif
         }
 
         private ObjectFactoryBase GetCurrentFactory(TypeRegistration registration)
@@ -3071,8 +3071,8 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                 catch (Exception ex)
                 {
                     if (ex.InnerException != null)
-                        throw new TinyIoCResolutionException (registration.Type, ex.InnerException);
-                    throw new TinyIoCResolutionException (registration.Type, ex);
+                        throw new TinyIoCResolutionException(registration.Type, ex.InnerException);
+                    throw new TinyIoCResolutionException(registration.Type, ex);
                 }
             }
 
@@ -3140,11 +3140,11 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                     }
                 }
             }
-            #if COMPILED_EXPRESSIONS
+#if COMPILED_EXPRESSIONS
             // Attempt to construct an automatic lazy factory if possible
             if (IsAutomaticLazyFactoryRequest(registration.Type))
             return GetLazyAutomaticFactoryRequest(registration.Type);
-            #endif
+#endif
             if (IsIEnumerableRequest(registration.Type))
                 return GetIEnumerableRequest(registration.Type);
 
@@ -3159,7 +3159,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
             throw new TinyIoCResolutionException(registration.Type);
         }
 
-        #if COMPILED_EXPRESSIONS
+#if COMPILED_EXPRESSIONS
         private object GetLazyAutomaticFactoryRequest(Type type)
         {
         if (!type.IsGenericType())
@@ -3222,7 +3222,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
 
         throw new TinyIoCResolutionException(type);
         }
-        #endif
+#endif
 
         private object GetIEnumerableRequest(Type type)
         {
@@ -3327,11 +3327,11 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
 
                 try
                 {
-                    args[parameterIndex] = parameters.ContainsKey(currentParam.Name) ? 
-                        parameters[currentParam.Name] : 
+                    args[parameterIndex] = parameters.ContainsKey(currentParam.Name) ?
+                        parameters[currentParam.Name] :
                         ResolveInternal(
-                            new TypeRegistration(currentParam.ParameterType), 
-                            NamedParameterOverloads.Default, 
+                            new TypeRegistration(currentParam.ParameterType),
+                            NamedParameterOverloads.Default,
                             options);
                 }
                 catch (TinyIoCResolutionException ex)
@@ -3340,36 +3340,36 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
                     // it will throw, so wrap it and throw that this can't
                     // be resolved.
                     if (ex.InnerException != null && ex.InnerException.InnerException != null)
-                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException.InnerException);
+                        throw new TinyIoCResolutionException(typeToConstruct, ex.InnerException.InnerException);
                     if (ex.InnerException != null)
-                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
-                    throw new TinyIoCResolutionException (typeToConstruct, ex);
+                        throw new TinyIoCResolutionException(typeToConstruct, ex.InnerException);
+                    throw new TinyIoCResolutionException(typeToConstruct, ex);
                 }
                 catch (Exception ex)
                 {
                     if (ex.InnerException != null)
-                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
-                    throw new TinyIoCResolutionException (typeToConstruct, ex);
+                        throw new TinyIoCResolutionException(typeToConstruct, ex.InnerException);
+                    throw new TinyIoCResolutionException(typeToConstruct, ex);
                 }
             }
 
             try
             {
-                #if COMPILED_EXPRESSIONS
+#if COMPILED_EXPRESSIONS
                 var constructionDelegate = CreateObjectConstructionDelegateWithCache(constructor);
                 return constructionDelegate.Invoke(args);
-                #else
+#else
                 return constructor.Invoke(args);
-                #endif
+#endif
             }
             catch (Exception ex)
             {
                 if (ex.InnerException != null)
-                    throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
-                throw new TinyIoCResolutionException (typeToConstruct, ex);
+                    throw new TinyIoCResolutionException(typeToConstruct, ex.InnerException);
+                throw new TinyIoCResolutionException(typeToConstruct, ex);
             }
         }
-        #if COMPILED_EXPRESSIONS
+#if COMPILED_EXPRESSIONS
         private static ObjectConstructor CreateObjectConstructionDelegateWithCache(ConstructorInfo constructor)
         {
         ObjectConstructor objectConstructor;
@@ -3400,12 +3400,12 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
         _ObjectConstructorCache[constructor] = objectConstructor;
         return objectConstructor;
         }
-        #endif
+#endif
         private void BuildUpInternal(object input, ResolveOptions resolveOptions)
         {
             var properties = from property in input.GetType().GetProperties()
-                    where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
-                select property;
+                             where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
+                             select property;
 
             foreach (var property in properties)
             {
@@ -3454,7 +3454,7 @@ namespace TemplateFoundation.IOCFoundation.TinyIoC
             {
                 if (registerType.IsInterface())
                 {
-                    if(!registerImplementation.GetInterfaces().Any(t => t.Name == registerType.Name))
+                    if (!registerImplementation.GetInterfaces().Any(t => t.Name == registerType.Name))
                         return false;
                 }
                 else if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)

@@ -32,7 +32,7 @@ namespace BaseTemplate
         /// </summary>
         private void CreateDataBaseTables()
         {
-           // Ioc.Container.Resolve<LocalDatabaseService>().CreateDatabaseTables(Send List of tabels);
+            // Ioc.Container.Resolve<LocalDatabaseService>().CreateDatabaseTables(Send List of tabels);
         }
         /// <summary>
         /// Set your default language for the entire app

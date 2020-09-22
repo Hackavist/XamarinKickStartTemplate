@@ -11,7 +11,7 @@ namespace TemplateFoundation.ExtensionMethods
             {
                 if (!propertyInfo.CanRead) continue;
                 if (propertyInfo.PropertyType != typeof(string)) continue;
-                string val = (string) propertyInfo.GetValue(obj);
+                string val = (string)propertyInfo.GetValue(obj);
                 return string.IsNullOrWhiteSpace(val);
             }
 

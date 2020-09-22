@@ -30,8 +30,8 @@ namespace TemplateFoundation.Navigation.NavigationContainers
         public Task PushPage(Page page, BaseViewModel model, bool modal = false, bool animate = true)
         {
             return modal
-                ? CurrentPage.Navigation.PushModalAsync(CreateContainerPageSafe(page),animate)
-                : CurrentPage.Navigation.PushAsync(page,animate);
+                ? CurrentPage.Navigation.PushModalAsync(CreateContainerPageSafe(page), animate)
+                : CurrentPage.Navigation.PushAsync(page, animate);
         }
 
         public Task PopPage(bool modal = false, bool animate = true)

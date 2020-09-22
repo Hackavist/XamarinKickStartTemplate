@@ -8,7 +8,7 @@ namespace TemplateFoundation.Validation.Rules
 
         public bool Check(T value)
         {
-            if (value == null)return false;
+            if (value == null) return false;
             var str = $"{value}";
             return !string.IsNullOrWhiteSpace(str);
         }

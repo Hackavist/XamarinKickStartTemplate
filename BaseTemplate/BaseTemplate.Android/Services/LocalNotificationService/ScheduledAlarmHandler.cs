@@ -31,7 +31,7 @@ namespace BaseTemplate.Droid.Services.LocalNotificationService
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(LocalNotification));
             using StringReader stringReader = new StringReader(notificationString);
-            return (LocalNotification) xmlSerializer.Deserialize(stringReader);
+            return (LocalNotification)xmlSerializer.Deserialize(stringReader);
         }
     }
 }

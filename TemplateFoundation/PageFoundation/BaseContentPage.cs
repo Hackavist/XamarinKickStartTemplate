@@ -1,8 +1,5 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
-using TemplateFoundation.IOCFoundation;
-using TemplateFoundation.Navigation;
-using TemplateFoundation.Navigation.Interfaces;
 using TemplateFoundation.ViewModelFoundation;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
@@ -15,7 +12,8 @@ namespace TemplateFoundation.PageFoundation
     {
         public BaseContentPage()
         {
-            var safeInsets = On<iOS>().SetLargeTitleDisplay(LargeTitleDisplayMode.Automatic).SafeAreaInsets();
+            if (Device.RuntimePlatform == Device.iOS) BackgroundColor = Color.Transparent;
+            Thickness safeInsets = On<iOS>().SetLargeTitleDisplay(LargeTitleDisplayMode.Automatic).SafeAreaInsets();
             safeInsets.Bottom = 15;
             Padding = safeInsets;
         }
@@ -28,11 +26,8 @@ namespace TemplateFoundation.PageFoundation
                 pageModel.ToolbarItems.Count <= 0) return;
             pageModel.ToolbarItems.CollectionChanged += PageModel_ToolbarItems_CollectionChanged;
 
-            foreach (var toolBarItem in pageModel.ToolbarItems)
-            {
-                if (!ToolbarItems.Contains(toolBarItem))
-                    ToolbarItems.Add(toolBarItem);
-            }
+            foreach (ToolbarItem toolBarItem in pageModel.ToolbarItems)
+                if (!ToolbarItems.Contains(toolBarItem)) ToolbarItems.Add(toolBarItem);
         }
 
         private void PageModel_ToolbarItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -44,9 +39,7 @@ namespace TemplateFoundation.PageFoundation
                 e.Action != NotifyCollectionChangedAction.Replace) return;
             {
                 foreach (ToolbarItem toolBarItem in e.OldItems)
-                {
                     if (!ToolbarItems.Contains(toolBarItem)) ToolbarItems.Add(toolBarItem);
-                }
             }
         }
 

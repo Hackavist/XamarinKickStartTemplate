@@ -35,8 +35,8 @@ namespace BaseTemplate.iOS.Services.LocalNotificationService
         /// <param name="id">Id of the notification to cancel</param>
         public void Cancel(int id)
         {
-            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new[] {CreateRequestIdForm(id)});
-            UNUserNotificationCenter.Current.RemoveDeliveredNotifications(new[] {CreateRequestIdForm(id)});
+            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new[] { CreateRequestIdForm(id) });
+            UNUserNotificationCenter.Current.RemoveDeliveredNotifications(new[] { CreateRequestIdForm(id) });
         }
 
 

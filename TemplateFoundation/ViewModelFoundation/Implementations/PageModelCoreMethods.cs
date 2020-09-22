@@ -296,8 +296,8 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
         }
 
         public List<Page> NavigationStack()
-        {    
-             return _currentPage.Navigation.NavigationStack.ToList();
+        {
+            return _currentPage.Navigation.NavigationStack.ToList();
         }
 
         public List<Page> ModalStack()

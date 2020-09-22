@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BaseTemplate.Constants;
 using SQLite;
-using SQLiteNetExtensionsAsync.Extensions;
 using Xamarin.Essentials;
 
 namespace BaseTemplate.Services.LocalDatabaseService
 {
     public class LocalDatabaseService : ILocalDatabaseService
     {
-
         #region Flags
 
         public const SQLiteOpenFlags Flags =
@@ -36,6 +35,8 @@ namespace BaseTemplate.Services.LocalDatabaseService
 
         private static SQLiteAsyncConnection SqlCon => LazyInitializer.Value;
 
+        public static bool DbInitialized;
+
         #endregion
 
         #region Methods
@@ -45,7 +46,9 @@ namespace BaseTemplate.Services.LocalDatabaseService
             foreach (Type item in tables)
                 try
                 {
+                    if (SqlCon.TableMappings.Any(m => m.MappedType.Name == item.Name)) continue;
                     await SqlCon.CreateTableAsync(item).ConfigureAwait(false);
+                    DbInitialized = true;
                 }
                 catch (Exception ex)
                 {
@@ -58,7 +61,9 @@ namespace BaseTemplate.Services.LocalDatabaseService
             foreach (Type item in tables)
                 try
                 {
+                    if (SqlCon.TableMappings.Any(m => m.MappedType.Name == item.Name)) continue;
                     await SqlCon.CreateTableAsync(item, tableCreateFlags).ConfigureAwait(false);
+                    DbInitialized = true;
                 }
                 catch (Exception ex)
                 {
@@ -88,7 +93,7 @@ namespace BaseTemplate.Services.LocalDatabaseService
         {
             try
             {
-                return await SqlCon.Table<T>().Where(query).ToListAsync().ConfigureAwait(false);
+                return await SqlCon.Table<T>().Where(query).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -99,7 +104,7 @@ namespace BaseTemplate.Services.LocalDatabaseService
 
         public async Task<List<T>> GetAll<T>() where T : class, new()
         {
-            return await SqlCon.GetAllWithChildrenAsync<T>().ConfigureAwait(false);
+            return await SqlCon.Table<T>().ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<int> Insert(object item)
@@ -123,13 +128,13 @@ namespace BaseTemplate.Services.LocalDatabaseService
 
         public async Task<int> InsertOrReplaceOne<T>(object item) where T : new()
         {
-            return await SqlCon.InsertOrReplaceAsync(item);
+            return await SqlCon.InsertOrReplaceAsync(item).ConfigureAwait(false);
         }
 
 
         public async Task InsertOrReplaceAll<T>(List<T> items) where T : new()
         {
-            await SqlCon.InsertOrReplaceAllWithChildrenAsync(items);
+            foreach (T item in items) await SqlCon.InsertOrReplaceAsync(item).ConfigureAwait(false);
         }
 
 
@@ -159,7 +164,7 @@ namespace BaseTemplate.Services.LocalDatabaseService
 
         public async Task DeleteAll<T>(List<T> items) where T : new()
         {
-            await SqlCon.DeleteAllAsync(items);
+            foreach (T item in items) await SqlCon.DeleteAsync(item).ConfigureAwait(false);
         }
 
 

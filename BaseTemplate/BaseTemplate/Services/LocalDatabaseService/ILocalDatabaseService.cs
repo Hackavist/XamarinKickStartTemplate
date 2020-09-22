@@ -9,7 +9,7 @@ namespace BaseTemplate.Services.LocalDatabaseService
     public interface ILocalDatabaseService
     {
         Task CreateDatabaseTables(List<Type> tables);
-        Task CreateDatabaseTables(List<Type> tables,CreateFlags tableCreateFlags);
+        Task CreateDatabaseTables(List<Type> tables, CreateFlags tableCreateFlags);
         Task<List<T>> GetAll<T>() where T : class, new();
         Task<int> Insert(object item);
         Task<int> InsertAll<T>(List<T> items) where T : new();
