@@ -1,4 +1,5 @@
-﻿using TemplateFoundation.Validation.Interfaces;
+﻿using System.Text.RegularExpressions;
+using TemplateFoundation.Validation.Interfaces;
 
 namespace TemplateFoundation.Validation.Rules
 {
@@ -9,18 +10,10 @@ namespace TemplateFoundation.Validation.Rules
     public class IsValidEmailRule<T> : IValidationRule<T>
     {
         public string ValidationMessage { get; set; }
-
+        public Regex EmailRegex { get; set; } = new Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
         public bool Check(T value)
         {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress($"{value}");
-                return addr.Address == $"{value}";
-            }
-            catch
-            {
-                return false;
-            }
+            return EmailRegex.IsMatch($"{value}");
         }
     }
 }

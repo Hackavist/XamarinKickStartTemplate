@@ -7,7 +7,14 @@ namespace TemplateFoundation.Validation.Implementations
 {
     public class ValidatableObject<T> : IValidatable<T>
     {
-        public bool CleanOnChange { get; set; } = true;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public List<IValidationRule<T>> ValidationRules { get; } = new List<IValidationRule<T>>();
+
+        public List<string> Errors { get; set; } = new List<string>();
+
+        public bool FirstTime { get; set; } = true;
+        public bool IsValid { get; set; } = true;
 
         T _value;
         public T Value
@@ -17,23 +24,27 @@ namespace TemplateFoundation.Validation.Implementations
             {
                 _value = value;
 
-                if (CleanOnChange)
+                if (FirstTime)
+                {
                     IsValid = true;
+                    FirstTime = false;
+                }
+                else
+                {
+                    if (Validate())
+                        IsValid = true;
+                    else
+                        IsValid = false;
+                }
+
             }
         }
-
-        public List<IValidationRule<T>> ValidationRules => new List<IValidationRule<T>>();
-
-        public List<string> Errors { get; set; } = new List<string>();
-        public bool IsValid { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public virtual bool Validate()
         {
             Errors.Clear();
 
-            IEnumerable<string> errors = ValidationRules.Where(v => !v.Check(Value)).Select(v => v.ValidationMessage);
+            IEnumerable<string> errors = ValidationRules.Where(v => !v.Check(Value))
+                .Select(v => v.ValidationMessage);
 
             Errors = errors.ToList();
             IsValid = !Errors.Any();
