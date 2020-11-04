@@ -10,7 +10,7 @@ namespace TemplateFoundation.Validation.Rules
     public class IsValidEmailRule<T> : IValidationRule<T>
     {
         public string ValidationMessage { get; set; }
-        public Regex EmailRegex { get; set; } = new Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+        public Regex EmailRegex { get; set; } = new Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", RegexOptions.Compiled);
         public bool Check(T value)
         {
             return EmailRegex.IsMatch($"{value}");
