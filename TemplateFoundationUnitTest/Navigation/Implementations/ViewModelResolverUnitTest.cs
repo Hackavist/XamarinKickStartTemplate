@@ -9,7 +9,7 @@ namespace TemplateFoundationUnitTest.Navigation.Implementations
 	public class ViewModelResolverUnitTest
 	{
 		[Theory]
-		[ClassData(typeof(ViewModelResolverData))]
+		[ClassData(typeof(ViewModelResolverTestBase))]
 		public void ResolveViewModelUnitTest(Type type, object data, BaseViewModel baseViewModel)
 		{
 			Page page = ViewModelResolver.ResolveViewModel(type, data, baseViewModel);

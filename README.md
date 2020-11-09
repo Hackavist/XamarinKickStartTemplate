@@ -203,7 +203,9 @@ or
 
 ## Special Thanks 
 
-To [Mohamed Ashraf](https://github.com/Ananasa) for his amazing talents in the design
+To [Mohamed Ashraf](https://github.com/Ananasa) for his amazing talents in the design.
+
+To [Ahmed Hussien](https://github.com/pharaoh1337) for being the first contributor.
 
 
 
