@@ -30,7 +30,7 @@ namespace BaseTemplate.iOS
 
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            DisplayCrashReport();
+            //DisplayCrashReport();
 
             return base.FinishedLaunching(app, options);
         }

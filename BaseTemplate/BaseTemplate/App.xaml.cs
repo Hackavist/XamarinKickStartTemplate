@@ -48,8 +48,8 @@ namespace BaseTemplate
         private void SetStartPage()
         {
             var masterDetailNav = new MasterDetailNavigationContainer();
-            masterDetailNav.Init("Menu");
-            masterDetailNav.AddPage<MainViewModel>("Home");
+            masterDetailNav.Init("Fawakeh");
+            masterDetailNav.AddPage<MainViewModel>();
             MainPage = masterDetailNav;
         }
     }
