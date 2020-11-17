@@ -175,12 +175,20 @@ namespace TemplateFoundation.Navigation.NavigationContainers
             else throw new Exception("Master list navigation name not the same as xaml");
             Master = masterpage;
         }
+        public void CreateMenuPage<T>() where T : BaseViewModel
+        {
+            var masterpage = ViewModelResolver.ResolveViewModel<T>();
+            Master = masterpage;
+        }
     }
+
+
 
     public class MenuItems : INotifyPropertyChanged
     {
         public string Title { get; set; }
         public string Image { get; set; }
+        public bool IsSelected { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
