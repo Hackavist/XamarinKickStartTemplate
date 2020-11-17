@@ -21,13 +21,11 @@
     <Folder Include="Navigation\Interfaces\" />
     <Folder Include="Navigation\Implementations\" />
     <Folder Include="Navigation\NavigationContainers\" />
-    <Folder Include="Helpers\HelperServices\" />
-    <Folder Include="Helpers\HelperModels\" />
     <Folder Include="PageFoundation\" />
-    <Folder Include="Validation\" />
-    <Folder Include="Validation\Interfaces\" />
-    <Folder Include="Validation\Implementations\" />
-    <Folder Include="Validation\Rules\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreServices\CoreServices.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 using System.IO;
 using System.Xml.Serialization;
 using Android.Content;
-using BaseTemplate.Services.LocalNotificationService;
+using CoreServices.LocalNotificationsServices;
 using Xamarin.Forms;
 
 namespace BaseTemplate.Droid.Services.LocalNotificationService

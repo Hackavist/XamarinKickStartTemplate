@@ -29,10 +29,8 @@
         <ProjectReference Include="..\..\TemplateFoundation\TemplateFoundation.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Constants\" />
         <Folder Include="ViewModels\" />
         <Folder Include="Pages\" />
-        <Folder Include="Resources\" />
         <Folder Include="Behaviors\" />
         <Folder Include="Behaviors\Entries\" />
     </ItemGroup>
@@ -40,14 +38,5 @@
         <Compile Update="Pages\MainPage.xaml.cs">
             <DependentUpon>MainPage.xaml</DependentUpon>
         </Compile>
-        <Compile Update="Resources\AppResources.Designer.cs">
-            <DependentUpon>AppResources.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <ItemGroup>
-        <EmbeddedResource Update="Resources\AppResources.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
     </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using BaseTemplate.iOS.Services.LocalNotificationService;
-using BaseTemplate.Services.LocalNotificationService;
+using CoreServices.LocalNotificationsServices;
 using Foundation;
 using UserNotifications;
 using Xamarin.Forms;

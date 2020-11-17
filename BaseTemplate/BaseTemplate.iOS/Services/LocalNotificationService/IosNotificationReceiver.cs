@@ -1,5 +1,5 @@
 ﻿using System;
-using BaseTemplate.Services.LocalNotificationService;
+using CoreServices.LocalNotificationsServices;
 using UserNotifications;
 using Xamarin.Forms;
 
