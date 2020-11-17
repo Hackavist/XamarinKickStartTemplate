@@ -154,12 +154,13 @@
     <PackageReference Include="Xamarin.Forms.PancakeView">
       <Version>2.3.0.759</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms.StateSquid">
-      <Version>1.1.3</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\CoreServices\CoreServices.csproj">
+      <Project>{F7937D67-C44C-4305-B645-C0C4F67F8B88}</Project>
+      <Name>CoreServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BaseTemplate\BaseTemplate.csproj">
       <Project>{C632F893-3A9D-419A-B680-3CF5940D6921}</Project>
       <Name>BaseTemplate</Name>

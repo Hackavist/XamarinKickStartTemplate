@@ -5,8 +5,8 @@ using Android.Runtime;
 using Android.OS;
 using System;
 using System.Threading.Tasks;
-using BaseTemplate.Constants;
 using System.Diagnostics;
+using CoreServices.Constants;
 
 namespace BaseTemplate.Droid
 {

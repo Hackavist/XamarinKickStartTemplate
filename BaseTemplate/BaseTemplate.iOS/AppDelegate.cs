@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
-using BaseTemplate.Constants;
-
+using CoreServices.Constants;
 using Foundation;
-
 using UIKit;
 
 namespace BaseTemplate.iOS

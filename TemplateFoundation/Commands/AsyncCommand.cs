@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TemplateFoundation.Commands;
 using TemplateFoundation.Commands.WeakEventManager;
+using TemplateFoundation.ExtensionMethods;
 
 namespace BaseMvvmToolKIt.Commands
 {

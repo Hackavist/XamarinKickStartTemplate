@@ -7,7 +7,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.App;
 using BaseTemplate.Droid.Services.LocalNotificationService;
-using BaseTemplate.Services.LocalNotificationService;
+using CoreServices.LocalNotificationsServices;
 using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 using TaskStackBuilder = Android.Support.V4.App.TaskStackBuilder;
