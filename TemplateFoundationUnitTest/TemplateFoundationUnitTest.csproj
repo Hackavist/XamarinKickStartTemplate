@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="xunit" Version="2.4.1" />
@@ -13,13 +13,17 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="1.3.0">
+        <PackageReference Include="coverlet.collector" Version="3.0.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\BaseTemplate\BaseTemplate\BaseTemplate.csproj" />
         <ProjectReference Include="..\TemplateFoundation\TemplateFoundation.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Xamarin.CommunityToolkit" />
     </ItemGroup>
 </Project>
