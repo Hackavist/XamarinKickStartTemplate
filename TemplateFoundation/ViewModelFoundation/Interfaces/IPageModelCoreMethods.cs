@@ -63,7 +63,7 @@ namespace TemplateFoundation.ViewModelFoundation.Interfaces
         Task PushNewNavigationServiceModal(TabbedNavigationContainer tabbedNavigationContainer,
             ViewModelFoundation.BaseViewModel basePageModel = null, bool animate = true);
 
-        Task PushNewNavigationServiceModal(MasterDetailNavigationContainer masterDetailContainer,
+        Task PushNewNavigationServiceModal(FlyoutNavigationContainer flyoutContainer,
             ViewModelFoundation.BaseViewModel basePageModel = null, bool animate = true);
 
         Task PushNewNavigationServiceModal(INavigationService newNavigationService, ViewModelFoundation.BaseViewModel basePageModels,

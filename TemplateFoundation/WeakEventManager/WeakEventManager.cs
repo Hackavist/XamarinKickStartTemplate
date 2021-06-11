@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.String;
 
-namespace TemplateFoundation.Commands.WeakEventManager
+namespace TemplateFoundation.WeakEventManager
 {
     /// <summary>
     /// Weak event manager that allows for garbage collection when the EventHandler is still subscribed
@@ -12,7 +12,7 @@ namespace TemplateFoundation.Commands.WeakEventManager
     /// <typeparam name="TEventArgs">Event args type.</typeparam>
     public class WeakEventManager<TEventArgs> where TEventArgs : EventArgs
     {
-        readonly Dictionary<string, List<Subscription>> _eventHandlers = new Dictionary<string, List<Subscription>>();
+        private readonly Dictionary<string, List<Subscription>> eventHandlers = new Dictionary<string, List<Subscription>>();
 
         /// <summary>
         /// Adds the event handler
@@ -27,7 +27,7 @@ namespace TemplateFoundation.Commands.WeakEventManager
             if (handler is null)
                 throw new ArgumentNullException(nameof(handler));
 
-            EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), _eventHandlers);
+            EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), this.eventHandlers);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace TemplateFoundation.Commands.WeakEventManager
             if (handler is null)
                 throw new ArgumentNullException(nameof(handler));
 
-            EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), _eventHandlers);
+            EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), this.eventHandlers);
         }
 
         /// <summary>
@@ -53,23 +53,23 @@ namespace TemplateFoundation.Commands.WeakEventManager
         /// <param name="eventArgs">Event arguments</param>
         /// <param name="eventName">Event name</param>
         public void HandleEvent(object sender, TEventArgs eventArgs, string eventName) =>
-            EventManagerService.HandleEvent(eventName, sender, eventArgs, _eventHandlers);
+            EventManagerService.HandleEvent(eventName, sender, eventArgs, this.eventHandlers);
 
         private readonly WeakReference _targetReference;
         private readonly MethodInfo _method;
 
         public WeakEventManager(EventHandler<TEventArgs> callback)
         {
-            _method = callback.GetMethodInfo();
-            _targetReference = new WeakReference(callback.Target, true);
+            this._method = callback.GetMethodInfo();
+            this._targetReference = new WeakReference(callback.Target, true);
         }
 
         public void Handler(object sender, TEventArgs e)
         {
-            var target = _targetReference.Target;
+            var target = this._targetReference.Target;
             if (target != null)
             {
-                var callback = (Action<object, TEventArgs>)_method.CreateDelegate(typeof(Action<object, TEventArgs>), target);
+                var callback = (Action<object, TEventArgs>)this._method.CreateDelegate(typeof(Action<object, TEventArgs>), target);
                 callback?.Invoke(sender, e);
             }
         }
@@ -80,7 +80,7 @@ namespace TemplateFoundation.Commands.WeakEventManager
     /// </summary>
     public class WeakEventManager
     {
-        readonly Dictionary<string, List<Subscription>> _eventHandlers = new Dictionary<string, List<Subscription>>();
+        private readonly Dictionary<string, List<Subscription>> eventHandlers = new Dictionary<string, List<Subscription>>();
 
         /// <summary>
         /// Adds the event handler
@@ -95,7 +95,7 @@ namespace TemplateFoundation.Commands.WeakEventManager
             if (handler is null)
                 throw new ArgumentNullException(nameof(handler));
 
-            EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), _eventHandlers);
+            EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), this.eventHandlers);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace TemplateFoundation.Commands.WeakEventManager
             if (handler is null)
                 throw new ArgumentNullException(nameof(handler));
 
-            EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), _eventHandlers);
+            EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), this.eventHandlers);
         }
 
         /// <summary>
@@ -121,6 +121,6 @@ namespace TemplateFoundation.Commands.WeakEventManager
         /// <param name="eventArgs">Event arguments</param>
         /// <param name="eventName">Event name</param>
         public void HandleEvent(object sender, object eventArgs, string eventName) =>
-            EventManagerService.HandleEvent(eventName, sender, eventArgs, _eventHandlers);
+            EventManagerService.HandleEvent(eventName, sender, eventArgs, this.eventHandlers);
     }
 }

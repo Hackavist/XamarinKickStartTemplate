@@ -8,20 +8,20 @@ namespace TemplateFoundation.Commands
     {
         public RelayCommandWithArgsAsync(Func<T, Task> action)
         {
-            _actionExecute = action;
+            this.actionExecute = action;
         }
 
         public override async Task ExecuteAsync(object parameter)
         {
             try
             {
-                await _actionExecute.Invoke((T)parameter);
-                SuccessCommand = true;
+                await this.actionExecute.Invoke((T)parameter);
+                this.SuccessCommand = true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                SuccessCommand = false;
+                this.SuccessCommand = false;
             }
         }
 
@@ -29,16 +29,16 @@ namespace TemplateFoundation.Commands
         {
             try
             {
-                _actionExecute.Invoke((T)parameter);
-                SuccessCommand = true;
+                this.actionExecute.Invoke((T)parameter);
+                this.SuccessCommand = true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                SuccessCommand = false;
+                this.SuccessCommand = false;
             }
         }
 
-        private readonly Func<T, Task> _actionExecute;
+        private readonly Func<T, Task> actionExecute;
     }
 }

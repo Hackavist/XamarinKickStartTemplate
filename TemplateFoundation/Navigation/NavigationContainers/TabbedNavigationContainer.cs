@@ -14,8 +14,8 @@ namespace TemplateFoundation.Navigation.NavigationContainers
 {
     public class TabbedNavigationContainer : TabbedPage, INavigationService
     {
-        public IEnumerable<Page> TabbedPages => _tabs;
-        private readonly List<Page> _tabs = new List<Page>();
+        public IEnumerable<Page> TabbedPages => this.tabs;
+        private readonly List<Page> tabs = new List<Page>();
 
         public TabbedNavigationContainer() : this(NavigationConstants.DefaultNavigationServiceName)
         {
@@ -56,17 +56,12 @@ namespace TemplateFoundation.Navigation.NavigationContainers
 
         public Task<BaseViewModel> SwitchSelectedRootPageModel<T>() where T : BaseViewModel
         {
-            int page = _tabs.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
+            int page = this.tabs.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
 
-            if (page > -1)
-            {
-                CurrentPage = Children[page];
-                var topOfStack = CurrentPage.Navigation.NavigationStack.LastOrDefault();
-                if (topOfStack != null)
-                    return Task.FromResult(topOfStack.GetModel());
-            }
-
-            return null;
+            if (page <= -1) return null;
+            CurrentPage = Children[page];
+            var topOfStack = CurrentPage.Navigation.NavigationStack.LastOrDefault();
+            return topOfStack != null ? Task.FromResult(topOfStack.GetModel()) : null;
         }
 
         protected void RegisterNavigation()
@@ -78,7 +73,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
         {
             var page = ViewModelResolver.ResolveViewModel<T>(data);
             page.GetModel().CurrentNavigationServiceName = NavigationServiceName;
-            _tabs.Add(page);
+            this.tabs.Add(page);
             var navigationContainer = CreateContainerPageSafe(page);
             navigationContainer.Title = title;
             if (!string.IsNullOrWhiteSpace(icon)) navigationContainer.IconImageSource = icon;
@@ -88,7 +83,7 @@ namespace TemplateFoundation.Navigation.NavigationContainers
 
         internal Page CreateContainerPageSafe(Page page)
         {
-            if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
+            if (page is NavigationPage || page is FlyoutPage || page is TabbedPage)
                 return page;
             return CreateContainerPage(page);
         }

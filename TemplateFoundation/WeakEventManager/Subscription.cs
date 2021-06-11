@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TemplateFoundation.Commands.WeakEventManager
+namespace TemplateFoundation.WeakEventManager
 {
     internal readonly struct Subscription
     {

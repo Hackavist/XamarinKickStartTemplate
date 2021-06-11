@@ -5,6 +5,7 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>

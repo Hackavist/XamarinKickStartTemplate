@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace TemplateFoundation.Commands.WeakEventManager
+namespace TemplateFoundation.WeakEventManager
 {
     static class EventManagerService
     {

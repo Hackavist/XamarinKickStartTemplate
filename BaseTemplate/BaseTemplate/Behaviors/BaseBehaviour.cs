@@ -1,5 +1,5 @@
 ﻿using System;
-using TemplateFoundation.Commands.WeakEventManager;
+using TemplateFoundation.WeakEventManager;
 using Xamarin.Forms;
 
 namespace BaseTemplate.Behaviors

@@ -6,9 +6,7 @@ namespace TemplateFoundation.Commands
 {
     public class BaseCommand : ICommand
     {
-        public bool Succes => SuccessCommand;
-
-        public event EventHandler CanExecuteChanged;
+	    public event EventHandler CanExecuteChanged;
 
         public virtual bool CanExecute(object parameter)
         {

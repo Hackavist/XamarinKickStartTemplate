@@ -13,32 +13,32 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 {
     public class PageModelCoreMethods : IPageModelCoreMethods
     {
-        private readonly Page _currentPage;
-        private readonly ViewModelFoundation.BaseViewModel _currentPageModel;
+        private readonly Page currentPage;
+        private readonly ViewModelFoundation.BaseViewModel currentPageModel;
 
         public PageModelCoreMethods(Page currentPage, ViewModelFoundation.BaseViewModel pageModel)
         {
-            _currentPage = currentPage;
-            _currentPageModel = pageModel;
+            this.currentPage = currentPage;
+            this.currentPageModel = pageModel;
         }
 
         public async Task DisplayAlert(string title, string message, string cancel)
         {
-            if (_currentPage != null)
-                await _currentPage.DisplayAlert(title, message, cancel);
+            if (this.currentPage != null)
+                await this.currentPage.DisplayAlert(title, message, cancel);
         }
 
         public async Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
         {
-            if (_currentPage != null)
-                return await _currentPage.DisplayActionSheet(title, cancel, destruction, buttons);
+            if (this.currentPage != null)
+                return await this.currentPage.DisplayActionSheet(title, cancel, destruction, buttons);
             return null;
         }
 
         public async Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
         {
-            if (_currentPage != null)
-                return await _currentPage.DisplayAlert(title, message, accept, cancel);
+            if (this.currentPage != null)
+                return await this.currentPage.DisplayAlert(title, message, accept, cancel);
             return false;
         }
 
@@ -86,39 +86,41 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         async Task PushPageModelWithPage(Page page, ViewModelFoundation.BaseViewModel pageModel, object data, bool modal = false, bool animate = true)
         {
-            pageModel.PreviousPageModel = _currentPageModel; //This is the previous page model because it's push to a new one, and this is current
-            pageModel.CurrentNavigationServiceName = _currentPageModel.CurrentNavigationServiceName;
+            pageModel.PreviousPageModel = this.currentPageModel; //This is the previous page model because it's push to a new one, and this is current
+            pageModel.CurrentNavigationServiceName = this.currentPageModel.CurrentNavigationServiceName;
 
             if (string.IsNullOrWhiteSpace(pageModel.PreviousNavigationServiceName))
-                pageModel.PreviousNavigationServiceName = _currentPageModel.PreviousNavigationServiceName;
+                pageModel.PreviousNavigationServiceName = this.currentPageModel.PreviousNavigationServiceName;
 
-            if (page is MasterDetailNavigationContainer)
+            switch (page)
             {
-                await this.PushNewNavigationServiceModal((MasterDetailNavigationContainer)page, pageModel, animate);
-            }
-            else if (page is TabbedNavigationContainer)
-            {
-                await this.PushNewNavigationServiceModal((TabbedNavigationContainer)page, pageModel, animate);
-            }
-            else
-            {
-                INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+                case FlyoutNavigationContainer container:
+                    await this.PushNewNavigationServiceModal(container, pageModel, animate);
+                    break;
+                case TabbedNavigationContainer container:
+                    await this.PushNewNavigationServiceModal(container, pageModel, animate);
+                    break;
+                default:
+                {
+                    INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(this.currentPageModel.CurrentNavigationServiceName);
 
-                await rootNavigation.PushPage(page, pageModel, modal, animate);
+                    await rootNavigation.PushPage(page, pageModel, modal, animate);
+                    break;
+                }
             }
         }
 
         public async Task PopPageModel(bool modal = false, bool animate = true)
         {
-            string navServiceName = _currentPageModel.CurrentNavigationServiceName;
-            if (_currentPageModel.IsModalFirstChild)
+            string navServiceName = this.currentPageModel.CurrentNavigationServiceName;
+            if (this.currentPageModel.IsModalFirstChild)
             {
                 await PopModalNavigationService(animate);
             }
             else
             {
                 if (modal)
-                    this._currentPageModel.RaisePageWasPopped();
+                    this.currentPageModel.RaisePageWasPopped();
 
                 INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(navServiceName);
                 await rootNavigation.PopPage(modal, animate);
@@ -127,15 +129,15 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         public async Task PopToRoot(bool animate)
         {
-            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(this.currentPageModel.CurrentNavigationServiceName);
             await rootNavigation.PopToRoot(animate);
         }
 
         public async Task PopPageModel(object data, bool modal = false, bool animate = true)
         {
-            if (_currentPageModel != null && _currentPageModel.PreviousPageModel != null && data != null)
+            if (this.currentPageModel != null && this.currentPageModel.PreviousPageModel != null && data != null)
             {
-                _currentPageModel.PreviousPageModel.ReverseInit(data);
+                this.currentPageModel.PreviousPageModel.ReverseInit(data);
             }
             await PopPageModel(modal, animate);
         }
@@ -158,20 +160,14 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
             return PushNewNavigationServiceModal(tabbedNavigationContainer, models.ToArray(), animate);
         }
 
-        public Task PushNewNavigationServiceModal(MasterDetailNavigationContainer masterDetailContainer, ViewModelFoundation.BaseViewModel basePageModel = null, bool animate = true)
+        public Task PushNewNavigationServiceModal(FlyoutNavigationContainer flyoutContainer, ViewModelFoundation.BaseViewModel basePageModel = null, bool animate = true)
         {
-            var models = masterDetailContainer.Pages.Select(o =>
-               {
-                   if (o.Value is NavigationPage)
-                       return ((NavigationPage)o.Value).CurrentPage.GetModel();
-                   else
-                       return o.Value.GetModel();
-               }).ToList();
+            var models = flyoutContainer.Pages.Select(o => o.Value is NavigationPage ? ((NavigationPage)o.Value).CurrentPage.GetModel() : o.Value.GetModel()).ToList();
 
             if (basePageModel != null)
                 models.Add(basePageModel);
 
-            return PushNewNavigationServiceModal(masterDetailContainer, models.ToArray(), animate);
+            return PushNewNavigationServiceModal(flyoutContainer, models.ToArray(), animate);
         }
 
         public Task PushNewNavigationServiceModal(INavigationService newNavigationService, ViewModelFoundation.BaseViewModel basePageModels, bool animate = true)
@@ -188,11 +184,11 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
             foreach (var pageModel in basePageModels)
             {
                 pageModel.CurrentNavigationServiceName = newNavigationService.NavigationServiceName;
-                pageModel.PreviousNavigationServiceName = _currentPageModel.CurrentNavigationServiceName;
+                pageModel.PreviousNavigationServiceName = this.currentPageModel.CurrentNavigationServiceName;
                 pageModel.IsModalFirstChild = true;
             }
 
-            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(this.currentPageModel.CurrentNavigationServiceName);
             await rootNavigation.PushPage(navPage, null, true, animate);
         }
 
@@ -208,12 +204,12 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
 
         public async Task PopModalNavigationService(bool animate = true)
         {
-            var currentNavigationService = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            var currentNavigationService = IOCFoundation.Ioc.Container.Resolve<INavigationService>(this.currentPageModel.CurrentNavigationServiceName);
             currentNavigationService.NotifyChildrenPageWasPopped();
 
-            IOCFoundation.Ioc.Container.Unregister<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            IOCFoundation.Ioc.Container.Unregister<INavigationService>(this.currentPageModel.CurrentNavigationServiceName);
 
-            var navServiceName = _currentPageModel.PreviousNavigationServiceName;
+            var navServiceName = this.currentPageModel.PreviousNavigationServiceName;
             INavigationService rootNavigation = IOCFoundation.Ioc.Container.Resolve<INavigationService>(navServiceName);
             await rootNavigation.PopPage(animate);
         }
@@ -223,7 +219,7 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
         /// </summary>
         public Task<ViewModelFoundation.BaseViewModel> SwitchSelectedRootPageModel<T>() where T : ViewModelFoundation.BaseViewModel
         {
-            var currentNavigationService = IOCFoundation.Ioc.Container.Resolve<INavigationService>(_currentPageModel.CurrentNavigationServiceName);
+            var currentNavigationService = IOCFoundation.Ioc.Container.Resolve<INavigationService>(this.currentPageModel.CurrentNavigationServiceName);
 
             return currentNavigationService.SwitchSelectedRootPageModel<T>();
         }
@@ -248,19 +244,19 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
         {
             var page = ViewModelResolver.ResolveViewModel<T>(data);
             var navigationName = Guid.NewGuid().ToString();
-            var naviationContainer = new NavigationPageContainer(page, navigationName);
-            await PushNewNavigationServiceModal(naviationContainer, page.GetModel(), animate);
+            var navigationContainer = new NavigationPageContainer(page, navigationName);
+            await PushNewNavigationServiceModal(navigationContainer, page.GetModel(), animate);
             return navigationName;
         }
 
         public void BatchBegin()
         {
-            _currentPage.BatchBegin();
+            this.currentPage.BatchBegin();
         }
 
         public void BatchCommit()
         {
-            _currentPage.BatchCommit();
+            this.currentPage.BatchCommit();
         }
 
         /// <summary>
@@ -268,8 +264,8 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
         /// </summary>
         public void RemoveFromNavigation()
         {
-            this._currentPageModel.RaisePageWasPopped();
-            this._currentPage.Navigation.RemovePage(_currentPage);
+            this.currentPageModel.RaisePageWasPopped();
+            this.currentPage.Navigation.RemovePage(this.currentPage);
         }
 
         /// <summary>
@@ -283,26 +279,23 @@ namespace TemplateFoundation.ViewModelFoundation.Implementations
         /// </summary>
         public void RemoveFromNavigation(Type type, bool removeAll = false)
         {
-            foreach (var page in this._currentPage.Navigation.NavigationStack.Reverse().ToList())
+            foreach (Page page in this.currentPage.Navigation.NavigationStack.Reverse().ToList().Where(page => page.BindingContext?.GetType() == type))
             {
-                if (page.BindingContext?.GetType() == type)
-                {
-                    page.GetModel()?.RaisePageWasPopped();
-                    this._currentPage.Navigation.RemovePage(page);
-                    if (!removeAll)
-                        break;
-                }
+                page.GetModel()?.RaisePageWasPopped();
+                this.currentPage.Navigation.RemovePage(page);
+                if (!removeAll)
+                    break;
             }
         }
 
         public List<Page> NavigationStack()
         {
-            return _currentPage.Navigation.NavigationStack.ToList();
+            return this.currentPage.Navigation.NavigationStack.ToList();
         }
 
         public List<Page> ModalStack()
         {
-            return _currentPage.Navigation.ModalStack.ToList();
+            return this.currentPage.Navigation.ModalStack.ToList();
         }
     }
 }

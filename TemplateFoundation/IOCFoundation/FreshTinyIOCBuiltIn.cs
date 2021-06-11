@@ -53,7 +53,7 @@ namespace TemplateFoundation.IOCFoundation
 
         TinyIoCContainer.RegisterOptions ITinyIoc.Register<TRegisterType>(TRegisterType instance)
         {
-            throw new NotImplementedException();
+            return TinyIoCContainer.Current.Register(instance);
         }
 
 

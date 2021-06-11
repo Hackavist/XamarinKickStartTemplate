@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Threading;
+using AutoMapper;
 using BaseTemplate.Resources;
 using BaseTemplate.Services.FileSystemService;
 using BaseTemplate.Services.LocalDatabaseService;
@@ -26,6 +27,10 @@ namespace BaseTemplate
         {
             Ioc.Container.Register<ILocalDatabaseService, LocalDatabaseService>().AsSingleton();
             Ioc.Container.Register<IFileSystemService, FileSystemService>().AsSingleton();
+            MapperConfiguration config = new MapperConfiguration(cfg => { cfg.AddMaps(GetType().Assembly); });
+            //config.AssertConfigurationIsValid();
+            IMapper mapper = config.CreateMapper();
+            Ioc.Container.Register(mapper);
         }
         /// <summary>
         /// Create your database tables that you need
@@ -47,7 +52,7 @@ namespace BaseTemplate
 
         private void SetStartPage()
         {
-            var masterDetailNav = new MasterDetailNavigationContainer();
+            var masterDetailNav = new FlyoutNavigationContainer();
             masterDetailNav.Init("Menu");
             masterDetailNav.AddPage<MainViewModel>("Home");
             MainPage = masterDetailNav;

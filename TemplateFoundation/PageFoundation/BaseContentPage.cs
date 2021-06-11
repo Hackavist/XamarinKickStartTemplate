@@ -22,7 +22,7 @@ namespace TemplateFoundation.PageFoundation
         {
             base.OnBindingContextChanged();
 
-            if (!(BindingContext is BaseViewModel pageModel) || pageModel.ToolbarItems == null ||
+            if (BindingContext is not BaseViewModel pageModel || pageModel.ToolbarItems == null ||
                 pageModel.ToolbarItems.Count <= 0) return;
             pageModel.ToolbarItems.CollectionChanged += PageModel_ToolbarItems_CollectionChanged;
 
